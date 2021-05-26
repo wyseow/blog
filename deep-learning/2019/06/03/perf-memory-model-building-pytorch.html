@@ -9,20 +9,20 @@
 <meta property="og:locale" content="en_US" />
 <meta name="description" content="Here are some key observations and lessons learned from building a brand new Seq-to-Seq model for sentence summarization and training it against a 1 million samples dataset." />
 <meta property="og:description" content="Here are some key observations and lessons learned from building a brand new Seq-to-Seq model for sentence summarization and training it against a 1 million samples dataset." />
-<link rel="canonical" href="http://localhost:4000/deep-learning/2019/06/03/perf-memory-model-building-pytorch.html" />
-<meta property="og:url" content="http://localhost:4000/deep-learning/2019/06/03/perf-memory-model-building-pytorch.html" />
+<link rel="canonical" href="http://localhost:4000/blog/deep-learning/2019/06/03/perf-memory-model-building-pytorch.html" />
+<meta property="og:url" content="http://localhost:4000/blog/deep-learning/2019/06/03/perf-memory-model-building-pytorch.html" />
 <meta property="og:site_name" content="DataGeeko.com" />
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2019-06-03T00:00:00+08:00" />
 <meta name="twitter:card" content="summary" />
 <meta property="twitter:title" content="Model building and performance tips for PyTorch" />
 <script type="application/ld+json">
-{"description":"Here are some key observations and lessons learned from building a brand new Seq-to-Seq model for sentence summarization and training it against a 1 million samples dataset.","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/deep-learning/2019/06/03/perf-memory-model-building-pytorch.html"},"url":"http://localhost:4000/deep-learning/2019/06/03/perf-memory-model-building-pytorch.html","headline":"Model building and performance tips for PyTorch","dateModified":"2019-06-03T00:00:00+08:00","datePublished":"2019-06-03T00:00:00+08:00","@type":"BlogPosting","@context":"https://schema.org"}</script>
+{"description":"Here are some key observations and lessons learned from building a brand new Seq-to-Seq model for sentence summarization and training it against a 1 million samples dataset.","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/blog/deep-learning/2019/06/03/perf-memory-model-building-pytorch.html"},"url":"http://localhost:4000/blog/deep-learning/2019/06/03/perf-memory-model-building-pytorch.html","headline":"Model building and performance tips for PyTorch","dateModified":"2019-06-03T00:00:00+08:00","datePublished":"2019-06-03T00:00:00+08:00","@type":"BlogPosting","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
-<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="DataGeeko.com" /></head>
+<link rel="stylesheet" href="/blog/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/blog/feed.xml" title="DataGeeko.com" /></head>
 <body><header class="site-header" role="banner">
 
-  <div class="wrapper"><a class="site-title" rel="author" href="/">DataGeeko.com</a><nav class="site-nav">
+  <div class="wrapper"><a class="site-title" rel="author" href="/blog/">DataGeeko.com</a><nav class="site-nav">
         <input type="checkbox" id="nav-trigger" class="nav-trigger" />
         <label for="nav-trigger">
           <span class="menu-icon">
@@ -101,12 +101,12 @@
 
 <p>4) Don’t push every tensor to GPU unless you need it for calculation in GPU. Sounds obvious but easy to miss.</p>
 
-  </div><a class="u-url" href="/deep-learning/2019/06/03/perf-memory-model-building-pytorch.html" hidden></a>
+  </div><a class="u-url" href="/blog/deep-learning/2019/06/03/perf-memory-model-building-pytorch.html" hidden></a>
 </article>
 
       </div>
     </main><footer class="site-footer h-card">
-  <data class="u-url" href="/"></data>
+  <data class="u-url" href="/blog/"></data>
 
   <div class="wrapper">
 
@@ -118,7 +118,7 @@
           <li class="p-name"></li></ul>
       </div>
 
-      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://www.linkedin.com/in/wei-yeng-seow-22405488"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#linkedin"></use></svg> <span class="username">wei-yeng-seow-22405488</span></a></li><li><a href="https://github.com/wyseow"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">wyseow</span></a></li></ul>
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://www.linkedin.com/in/wei-yeng-seow-22405488"><svg class="svg-icon"><use xlink:href="/blog/assets/minima-social-icons.svg#linkedin"></use></svg> <span class="username">wei-yeng-seow-22405488</span></a></li><li><a href="https://github.com/wyseow"><svg class="svg-icon"><use xlink:href="/blog/assets/minima-social-icons.svg#github"></use></svg> <span class="username">wyseow</span></a></li></ul>
 </div>
 
       <div class="footer-col footer-col-3">
