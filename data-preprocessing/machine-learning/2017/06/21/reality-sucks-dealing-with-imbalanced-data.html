@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>Reality sucks - dealing with imbalanced data | DataGeeko.com</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Reality sucks - dealing with imbalanced data" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="You stumble upon some intriguing patient cancer dataset that seems to be the last remaining puzzle towards solving the human war against cancer that will make this world a better place for everyone and you excitedly download the dataset." />
+<meta property="og:description" content="You stumble upon some intriguing patient cancer dataset that seems to be the last remaining puzzle towards solving the human war against cancer that will make this world a better place for everyone and you excitedly download the dataset." />
+<link rel="canonical" href="http://localhost:4000/data-preprocessing/machine-learning/2017/06/21/reality-sucks-dealing-with-imbalanced-data.html" />
+<meta property="og:url" content="http://localhost:4000/data-preprocessing/machine-learning/2017/06/21/reality-sucks-dealing-with-imbalanced-data.html" />
+<meta property="og:site_name" content="DataGeeko.com" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2017-06-21T00:00:00+08:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Reality sucks - dealing with imbalanced data" />
+<script type="application/ld+json">
+{"description":"You stumble upon some intriguing patient cancer dataset that seems to be the last remaining puzzle towards solving the human war against cancer that will make this world a better place for everyone and you excitedly download the dataset.","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/data-preprocessing/machine-learning/2017/06/21/reality-sucks-dealing-with-imbalanced-data.html"},"url":"http://localhost:4000/data-preprocessing/machine-learning/2017/06/21/reality-sucks-dealing-with-imbalanced-data.html","headline":"Reality sucks - dealing with imbalanced data","dateModified":"2017-06-21T00:00:00+08:00","datePublished":"2017-06-21T00:00:00+08:00","@type":"BlogPosting","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="DataGeeko.com" /></head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">DataGeeko.com</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Reality sucks - dealing with imbalanced data</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2017-06-21T00:00:00+08:00" itemprop="datePublished">Jun 21, 2017
+      </time></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p>You stumble upon some intriguing patient cancer dataset that seems to be the last remaining puzzle towards solving the human war against cancer that will make this world a better place for everyone and you excitedly download the dataset.</p>
+
+<p>Your data analysis usually go through these standard processes: 1) Load data 2) Do some pre-processing of data (cleaning, converting variables to categorical variables, etc) 4) Use visualisation library like pyplot (Okay, maybe more advanced stuff like Seaborn) to discover early insights and low hanging fruits 3) Load a machine learning model from scikit-learn library 4) Fit the model with your prepared data 5) Finally, predict the y values of your test x values. 6) Use some metrics to assess model accuracy</p>
+
+<p><strong><em>Voila!</em></strong> You have just generated your gold standard prediction in a proven pipeline that could apply to all dataset in Kaggle!</p>
+
+<p><strong>BUT wait!</strong> You realise that all, if not most of the predicted values return the same value! And upon deeper look, you might discover that most of your sample data belong to one, same class!</p>
+
+<p>This is a good example of imbalanced data, and the fact is that not every dataset that comes to you will be nicely distributed, labelled and all that stuff. Only if real world dataset is like Kaggle dataset huh?</p>
+
+<p>This is when rubber hits the road and that 6-figure data science job doesn’t sound so easy anymore. But hey, this is valuable skills to add to your resume and if you set to be a data scientist, you are bound to hit this problem so let’s see how do we tackle this nasty issue.</p>
+
+<p>Here’s a very simplified example to bring the problem across. Consider this dataset: [Product][Cost][Category] iPad 340 1 iPhone 200 2 iMac 1900 3 iPhone6 250 2 iPhone7 390 2 iPhone8 490 2</p>
+
+<p>When you train the model using the dataset above to predict the category of the product given the product name and cost, you are as good as teaching the model to recognise the features that it needs to predict category value of 2 because they are the “majority class” - samples from a class that represent most of the data.</p>
+
+<p>There’s simply not enough samples from the other classes to teach the model what it’s like to predict other things than category value of 2. In this case, the other classes which only has a few samples(relatively) are called “minority classes”</p>
+
+<p>Ideally, you should hit a good balanced, equal distribution of all your classes to ensure that the model can be properly trained for all classes and you should be able to spot this problem in your “visualisation step” where you inspect the data’s distribution using histogram and stuff like that.</p>
+
+<p>[caption id=”attachment_74” align=”alignnone” width=”626”]<img src="/post_images/seaborn-countplot-1-2.png" alt="" /> Look at that mountain of imbalanced data![/caption]</p>
+
+<p>So how do you go about solving this problem of imbalanced data?</p>
+
+<p>Fortunately, all is not lost - there are 3 ways to go about it.</p>
+
+<p><strong>1) Resample differently</strong></p>
+
+<p>If you have a large dataset to play with, do an under-sample. Under-sample means removing the additional majority class samples to make the whole dataset balanced again.</p>
+
+<p>For example, reduce the samples that belong to category 2. After under-sampling: [Product][Cost][Category] iPad 340 1 iPhone 200 2 iMac 1900 3</p>
+
+<p>I know this might look strange because there are only 3 samples left! So that’s why I said you really need to have a large dataset to even consider under-sampling.</p>
+
+<p>Technically, this is one of the easiest way to go about it. Choose a X samples from each class and to ensure that the distribution of each class is equal:</p>
+
+<p>[python] #Number of samples per class num_choose = 100</p>
+
+<p>#Get 100 samples from class 1 indices_1 = trainDF[trainDF.Score == 1].index random_indices = np.random.choice(indices_1, num_choose, replace=False) sample_1 = trainDF.loc[random_indices]</p>
+
+<p>#Get 100 samples from class 2 indices_2 = trainDF[trainDF.Score == 2].index random_indices = np.random.choice(indices_2, num_choose, replace=False) sample_2 = trainDF.loc[random_indices]</p>
+
+<p>dataset = pd.concat([sample_1,sample_2]) [/python]</p>
+
+<p>On the other hand, if you don’t have a large dataset to play with, do an over-sample. Over-sample means increasing the number of minority class samples to make the whole dataset balanced again.</p>
+
+<p>For example. reduce the samples that belong to category 1 and 3. After: [Product][Cost][Category] iPad 340 1 iPhone 200 2 iMac 1900 3 iPhone6 250 2 iPhone7 390 2 iPhone8 490 2 iMac2 1800 3 &lt;-synthetically created samples iMac3 2000 3 &lt;-synthetically created samples iPad2 370 1 &lt;-synthetically created samples iPad3 390 1 &lt;-synthetically created samples</p>
+
+<p>That’s kind of neat huh? A good demonstration of “fake it till you make it”.</p>
+
+<p>There are many techniques and methods to create artificial samples and the most easy way is to use SMOTE(Synthetic Minority Over-sampling Technique). It’s currently implemented by this Python library over <a href="https://github.com/scikit-learn-contrib/imbalanced-learn">here</a> and you just need to import the python module to start using it. Here’s an example:</p>
+
+<p>[python] from collections import Counter from sklearn.datasets import make_classification from imblearn.over_sampling import SMOTE import pandas as pd import numpy as np</p>
+
+<p>#Create an imbalanced dataset X, y = make_classification(n_classes=2, class_sep=2,weights=[0.1, 0.9], n_informative=3, n_redundant=1, flip_y=0,n_features=10, n_clusters_per_class=1, n_samples=100, random_state=10)</p>
+
+<p>print(‘Original dataset shape {}’.format(Counter(y))) #prints Original dataset shape Counter({1: 90, 0: 10})</p>
+
+<p>combined = pd.DataFrame(np.column_stack([X,y])) print(combined.shape) #prints (100, 11)</p>
+
+<p>sm = SMOTE(random_state=42) X_res, y_res = sm.fit_sample(X, y)</p>
+
+<p>print(‘Resampled dataset shape {}’.format(Counter(y_res))) #prints Resampled dataset shape Counter({1: 90, 0: 90}) #We can see that SMOTE has created the lacking 80 samples of the minority class!</p>
+
+<p>combined2 = pd.DataFrame(np.column_stack([X_res,y_res])) print(combined2.shape) #prints (180, 11)</p>
+
+<p>[/python]</p>
+
+<p><strong>2) Accept the imbalance, and define accuracy as sensitivity and specificity rather than a complete correct VS wrong prediction.</strong></p>
+
+<p>Perhaps you could use a ROC(Receiver Operating Characteristic) curve to see the rate of true positive prediction over the rate of false positive prediction based on the different threshold, and accept the fact that the model will perform at an accuracy of X% with the probability of Y% of them a wrong prediction.</p>
+
+<p>Consider this ROC curve:<img src="/post_images/sphx_glr_plot_roc_002.png" alt="" /> It represents the trade-off(price to pay) of positive accuracy for negative accuracy. The large the area of the curve, the more accurate it is.</p>
+
+<p>I’ll talk about this-in depth-in a later post. There’s much more details to it.</p>
+
+<p><strong>3) Use weights in models to offset the imbalance.</strong></p>
+
+<p>You can use the “<strong>class_weight”</strong> parameter in many scikit-learn models to give additional weight to the minority classes during training and predicting. This is an example of using class_weight in SVM in an attempt to  have the model place more emphasis on minority class:</p>
+
+<p>[python] # set the class “1” to have weight of 10 wclf = svm.SVC(kernel=’linear’, class_weight={1: 10}) wclf.fit(X, y) [/python]</p>
+
+<p>Visualisation: <img src="/post_images/sphx_glr_plot_separating_hyperplane_unbalanced_001.png" alt="" /></p>
+
+<p>These are some of the ways that I have personally used, and there are tons of other sophisticated ways to tackle this issue. If you have a good idea, feel free to share it with us below.</p>
+
+<p>Thanks for reading and see you at the next post!</p>
+
+  </div><a class="u-url" href="/data-preprocessing/machine-learning/2017/06/21/reality-sucks-dealing-with-imbalanced-data.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">DataGeeko.com</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name"></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://www.linkedin.com/in/wei-yeng-seow-22405488"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#linkedin"></use></svg> <span class="username">wei-yeng-seow-22405488</span></a></li><li><a href="https://github.com/wyseow"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">wyseow</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>You just found DataGeeko.com! This is my personal website where I share fun experiments,  projects and insights about data science and machine learning.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

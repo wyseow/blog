@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>How to deploy a Hadoop/Spark Cluster with multiple machines | DataGeeko.com</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="How to deploy a Hadoop/Spark Cluster with multiple machines" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="When you take your machine learning models to the production level, especially in an enterprise setting, you will need your models to give you a fast and reliable response. And this is where Spark comes into the picture. Spark offers a reliable distributed/clustered computing framework that sits on top of the Hadoop framework and if you go the extra mile of configuring the HDFS and YARN, it can even achieve even more resiliency in your product. To start things small, let’s start with Spark and we’ll see how the other components fit in." />
+<meta property="og:description" content="When you take your machine learning models to the production level, especially in an enterprise setting, you will need your models to give you a fast and reliable response. And this is where Spark comes into the picture. Spark offers a reliable distributed/clustered computing framework that sits on top of the Hadoop framework and if you go the extra mile of configuring the HDFS and YARN, it can even achieve even more resiliency in your product. To start things small, let’s start with Spark and we’ll see how the other components fit in." />
+<link rel="canonical" href="http://localhost:4000/hadoop/spark/2017/08/03/how-to-deploy-a-hadoopspark-cluster-with-multiple-machines.html" />
+<meta property="og:url" content="http://localhost:4000/hadoop/spark/2017/08/03/how-to-deploy-a-hadoopspark-cluster-with-multiple-machines.html" />
+<meta property="og:site_name" content="DataGeeko.com" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2017-08-03T00:00:00+08:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="How to deploy a Hadoop/Spark Cluster with multiple machines" />
+<script type="application/ld+json">
+{"description":"When you take your machine learning models to the production level, especially in an enterprise setting, you will need your models to give you a fast and reliable response. And this is where Spark comes into the picture. Spark offers a reliable distributed/clustered computing framework that sits on top of the Hadoop framework and if you go the extra mile of configuring the HDFS and YARN, it can even achieve even more resiliency in your product. To start things small, let’s start with Spark and we’ll see how the other components fit in.","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/hadoop/spark/2017/08/03/how-to-deploy-a-hadoopspark-cluster-with-multiple-machines.html"},"url":"http://localhost:4000/hadoop/spark/2017/08/03/how-to-deploy-a-hadoopspark-cluster-with-multiple-machines.html","headline":"How to deploy a Hadoop/Spark Cluster with multiple machines","dateModified":"2017-08-03T00:00:00+08:00","datePublished":"2017-08-03T00:00:00+08:00","@type":"BlogPosting","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="DataGeeko.com" /></head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">DataGeeko.com</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">How to deploy a Hadoop/Spark Cluster with multiple machines</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2017-08-03T00:00:00+08:00" itemprop="datePublished">Aug 3, 2017
+      </time></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p>When you take your machine learning models to the production level, especially in an enterprise setting, you will need your models to give you a fast and reliable response. And this is where Spark comes into the picture. Spark offers a reliable distributed/clustered computing framework that sits on top of the Hadoop framework and if you go the extra mile of configuring the HDFS and YARN, it can even achieve even more resiliency in your product. To start things small, let’s start with Spark and we’ll see how the other components fit in.</p>
+
+<p><strong>Installing Spark on Mac/Unix based machine</strong></p>
+
+<p>Note: I assume that you have an existing Python installation.</p>
+
+<p>Step 1: Go to the official spark download page <a href="http://spark.apache.org/downloads.html">here</a> and download the .tgz distribution: <img src="/post_images/Screen-Shot-2017-07-30-at-10.48.21-PM-1024x330.png" alt="" /></p>
+
+<p><strong>Note:</strong> We are selecting the pre-built Hadoop because we don’t want to install the entire Hadoop framework just because of Spark. Of course, if you are satisfied with Spark’s capabilities and want to take advantage of Hadoop’s modules in enhancing your existing Spark installation, you can always install Hadoop later on and just “point” your Spark installation to the entire Hadoop installation. Anyway, selecting this option would allow Spark to install a few Hadoop files which are just enough to let Spark talk nicely with it and get things going.</p>
+
+<p>Step 2: Extract the tgz file into a directory of your choice and rename the folder into a more readable name. For me, this is my spark directory:</p>
+
+<p>[php] /Users/machineA/Documents/spark [/php]</p>
+
+<p>Step 3: Fire up your terminal and edit your ~/.bash_profile to add the Spark directory to your classpath:</p>
+
+<p>[php] vi ~/.bash_profile [/php]</p>
+
+<p>Step 4: Add the following lines:</p>
+
+<p>[php] export SPARK_HOME=/Users/machineA/Documents/spark export PATH=$SPARK_HOME/bin:$PATH [/php]</p>
+
+<p>Replace the spark directory path with your own.</p>
+
+<p>Step 5: Save the changes by executing:</p>
+
+<p>[php] source ~/.bash_profile [/php]</p>
+
+<p>Okay! In 5 Steps, you have basically completed Hadoop/Spark installation! You have added the Spark directory into your classpath and now we are ready to give the sparkling new Spark a try!</p>
+
+<p>Start pyspark by typing:</p>
+
+<p>[php]pyspark[/php]</p>
+
+<p>If your classpath has been set correctly, your machine will automatically load the pyspark interactive shell in your Spark installation. You should see this: <img src="/post_images/Screen-Shot-2017-07-30-at-11.09.39-PM-1024x718.png" alt="" /> If you can see this artwork(I wonder how long does it take them draw this), it means Spark can be successfully run on your machine!</p>
+
+<p>You can type some stuff in this interactive shell to interact with the Spark framework, including submitting a Spark job(we will come to that later). A simple one is to query the Spark version:</p>
+
+<p>[php]sc.version[/php]</p>
+
+<p>It returns a “2.2.0” for me.</p>
+
+<p>What you have done is an installation of Spark on just 1 machine, and that doesn’t sound very exciting as a cluster, isn’t it? Let’s see how we can hook a few machines together to build a true Spark cluster that could process all your exciting machine learning tasks in parallel!</p>
+
+<p>In this example, I have also installed Spark on another machine, machine B. So we have machine A and B now. Let’s treat the machine A as the master, and machine B as the slave. In production scenarios, there could be many more machines like machine B that serves like the slaves.</p>
+
+<p>The general idea is that the master machine primarily orchestrates, splits and collect back the tasks from all the slave machines. There’s a lot of technical details on who-do-what(we will come to that) but that is the general picture.</p>
+
+<p>Let’s see how we connect and start the Spark cluster with master and slave machines.</p>
+
+<p>Step 1: Start the master in machine A:</p>
+
+<p>[php] cd /Users/machineA/Documents/spark/sbin ./start-master.sh [/php]</p>
+
+<p>You shouldn’t see any error message. When the master has started, Spark will create a monitoring page at port 8080 by default.</p>
+
+<p>Fire up your bowser, navigate to “http://localhost:8080” and you should see some details of your master machine like the Spark Master URL that your slaves can connect to. The URL should be in the form of: spark://masterhostname:7070</p>
+
+<p>Step 2: Start the slave in machine B and connect to the master in machine A:</p>
+
+<p>[php] cd /Users/machineA/Documents/spark/sbin ./start-slave.sh spark://masterhostname:7070 [/php]</p>
+
+<p>The first parameter in the script is the Spark Master URL-which you have just acquired-of the master machine you are connecting, to form part of the cluster.</p>
+
+<p>Give it a while and refresh the monitoring page at your master machine. You should see the connected slaves such as: <img src="/post_images/Screen-Shot-2017-07-29-at-1.28.55-am-1024x388.png" alt="" /> If you can see the above, that means now you have a fully connected cluster (multiple machines) across the network! In your production setting, you can add more slaves to your master machine in similar manner.</p>
+
+<p>So how do you give some work to the slaves? We’ll use “spark-submit” program to send the job to the master, and let the master distribute the tasks to the workers in the cluster.</p>
+
+<p>Step 1: Create a test file, <strong>test.py</strong> with the content below, in your master machine(machine A):</p>
+
+<p>[python] import pyspark as ps import random</p>
+
+<p>spark = ps.sql.SparkSession.builder \ .appName(“rdd test”) \ .getOrCreate()</p>
+
+<p>random.seed(1)</p>
+
+<p>def sample(p): x, y = random.random(), random.random() return 1 if x*x + y*y &lt; 1 else 0</p>
+
+<p>count = spark.sparkContext.parallelize(range(0, 10000000)).map(sample) \ .reduce(lambda a, b: a + b)</p>
+
+<p>print(“Pi is (very) roughly {}”.format(4.0 * count / 10000000)) [/python]</p>
+
+<p>Step 2: From the terminal of your master machine, submit the application/job(test.py) to your master machine by using spark-submit:</p>
+
+<p>[php] spark-submit –master spark://masterhostname:7070 /path/to/test.py [/php]</p>
+
+<p>We are configuring on the fly to submit the job to the master at the indicated Spark Master URL and the path of the python file to execute. The program will start a series of process which consists of things like re-checking all the connected slaves in the cluster, splitting up the tasks in stages, send the application files and dependencies to all the worker machine, disseminate the tasks down to every worker and finally collecting back the results from the workers.</p>
+
+<p>If the above execution is successfully, you should see the following message:</p>
+
+<p>[php]Pi is (very) roughly 3.141317[/php]</p>
+
+<p>Actually, when the execution is on-going, you can visit your master machine monitoring page(http://localhost:8080) and you could see that the allocation of resources of your worker machines on the running application. Something like this: <img src="/post_images/RunningaSparkapplicationinStandaloneMode2-1024x297.jpg" alt="" /></p>
+
+<p>Okay! We are all done! You have a fully connected Spark cluster now and from here, there are a few things you could explore: 1) Tweaking the memory settings of your worker machines to make sure you are not under-utilizing your resources. 2) Look into implementing Hadoop’s HDFS to provide a clustered file system for all your cluster machine. 3) And use even more modules in the Hadoop ecosystem to make your machine learning cluster setup even stronger and reliable!</p>
+
+<p>If you are installing a full-blown Hadoop installation, remember to add this in your .bash_profile to point your Spark to Hadoop directory so that they can play nice together:</p>
+
+<p>[php] export HADOOP_HOME=/usr/local/hadoop export LD_LIBRARY_PATH=$HADOOP_HOME/lib/native/:$LD_LIBRARY_PATH [/php]</p>
+
+<p> </p>
+
+<p><strong>When things do not work out :(</strong> If the above installation steps are not working well for you, take a look at the scenarios below.</p>
+
+<p><strong>Problem: Unable to start master using “start-master.sh”</strong></p>
+
+<p>When you execute this command:</p>
+
+<p>[php] ./start-master.sh [/php]</p>
+
+<p>it gives you something like:</p>
+
+<p>[php] failed to launch: nice -n 0 /your-spark-path/spark-class org.apache.spark.deploy.master.Master –host your-master-host –port 7077 –web-ui-port 8080 [/php]</p>
+
+<p><strong>Solution:</strong> Chances are the ports that Spark is trying to open (7077 and 8080) when launching the master, are being used by existing applications. I know quite a few web servers used port 8080 as well so that might be the case. Assign new ports by explicitly override the default value in your start-master.sh command like this:</p>
+
+<p>[php] ./start-master.sh –web-ui-port:8888 [/php]</p>
+
+<p><strong>Problem: Worker machines cannot connect to master or vice versa</strong> This is a common problem in corporate or enterprise setting as the servers have undergone security hardening, which is a process where they block all applications, implement strict user access rights and most importantly, block all the ports leaving a few essential ones open. Remember that when it comes to enterprise servers and machines, it’s always whitelist instead of blacklist for all ports and applications.</p>
+
+<p><strong>Solution: Check and open port if necessary</strong> Note: For unix based machines only</p>
+
+<p>To check whether a port(e.g. 8080) has been blocked or not, enter this:</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>[php] iptables -nL</td>
+      <td>grep 8080 [/php]</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>If this port is not allowed to open or accepted in the IP Tables, nothing will be returned.</p>
+
+<p>If the port is allowed to open or accepted, you should see this:</p>
+
+<p>[php] ACCEPT tcp – 0.0.0.0/0 0.0.0.0/0 tcp dpt:8080 [/php]</p>
+
+<p>To allow a port(e.g. 8888) into the IP Tables, do this:</p>
+
+<p>[php] sudo /sbin/iptables -I INPUT -p tcp -m -tcp -m tcp –dport 8888 -j ACCEPT [/php]</p>
+
+<p>Test again, shut down the slave/master and start them up again to test the connectivity. If it works, do this to save the changes you just did:</p>
+
+<p>[php]sudo /sbin/service iptables save[/php]</p>
+
+<p>Here’s a list of ports used by Spark master and workers at one glance: <img src="/post_images/Screen-Shot-2017-08-03-at-9.37.24-PM-1024x860.png" alt="" /></p>
+
+<p> </p>
+
+<p>I hope these installation steps have been helpful to you, and hopefully in the near future you could take advantage of this powerful distributed computing capability offered by Spark!</p>
+
+<p>Tip: Look into <a href="https://spark.apache.org/mllib/">MLLib library</a> that is part of the Spark framework, because there is a good chance that they have a “scalable version” of your machine learning algorithm that you are about to use. It will fit directly with Spark’s API and there are tons of machine learning algorithms and utilities implemented in the library and ready to work in just a few lines.</p>
+
+<p>Let me know if the steps didn’t work well, or comment below if you have something that might help other readers as well. :)</p>
+
+  </div><a class="u-url" href="/hadoop/spark/2017/08/03/how-to-deploy-a-hadoopspark-cluster-with-multiple-machines.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">DataGeeko.com</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name"></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://www.linkedin.com/in/wei-yeng-seow-22405488"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#linkedin"></use></svg> <span class="username">wei-yeng-seow-22405488</span></a></li><li><a href="https://github.com/wyseow"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">wyseow</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>You just found DataGeeko.com! This is my personal website where I share fun experiments,  projects and insights about data science and machine learning.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
