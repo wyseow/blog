@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2021-05-27T13:42:14+08:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">DataGeeko.com</title><subtitle>You just found DataGeeko.com! This is my personal website where I share fun experiments,  projects and insights about data science and machine learning.</subtitle><entry><title type="html">New home for Datageeko.com; Bye Wordpress!</title><link href="http://localhost:4000/others/2021/05/26/migrating-wordpress-to-jekyll.html" rel="alternate" type="text/html" title="New home for Datageeko.com; Bye Wordpress!" /><published>2021-05-26T00:00:00+08:00</published><updated>2021-05-26T00:00:00+08:00</updated><id>http://localhost:4000/others/2021/05/26/migrating-wordpress-to-jekyll</id><content type="html" xml:base="http://localhost:4000/others/2021/05/26/migrating-wordpress-to-jekyll.html">&lt;p&gt;Do you know that you could use Github to create a free website or blog? While it’s not as straightforward as Wordpress, you don’t need to worry about hackers who constantly try to log into your Wordpress admin panel, comment spams, or yearly web hosting fees which increases every year. This is enabled by using a feature called &lt;a href=&quot;https://pages.github.com&quot;&gt;Github Pages&lt;/a&gt; that render your codes to a github.io endpoint and a tool called &lt;a href=&quot;https://jekyllrb.com&quot;&gt;Jekyll&lt;/a&gt; which generates(build) static blog posts, and it doesn’t look any different from a Wordpress site!&lt;/p&gt;
+
+&lt;p&gt;You could still have pagination, categories, etc. The caveat is that you probably need more grease work and there’s some learning curve to learn how to setup “gem”.&lt;/p&gt;
+
+&lt;p&gt;After following some helpful guides online and spending a couple of weekends on this fun project, I have successfully migrated my old wordpress site to a sprankling new Jekyll blog!&lt;/p&gt;
+
+&lt;p&gt;If you are inspired, and want to join many other geeks who have moved from Wordpress to a free Jekyll blog, here are some useful guides that I have used:&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=EvYs1idcGnM&amp;amp;list=PLWzwUIYZpnJuT0sH4BN56P5oWTdHJiTNq&quot;&gt;https://www.youtube.com/watch?v=EvYs1idcGnM&amp;amp;list=PLWzwUIYZpnJuT0sH4BN56P5oWTdHJiTNq&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Using custom domain (your own .com):&lt;/p&gt;
+
+&lt;p&gt;https://deanattali.com/blog/multiple-github-pages-domains/&lt;/p&gt;
+
+&lt;p&gt;https://librarycarpentry.org/lc-git/05-github-pages/index.html&lt;/p&gt;
+
+&lt;p&gt;I did some customization on the current theme and if you like, feel free to clone it here.&lt;/p&gt;</content><author><name></name></author><category term="others" /><summary type="html">Fun weekend project for migrating Wordpress to Jekyll.</summary></entry><entry><title type="html">How to Perform EDA Efficiently</title><link href="http://localhost:4000/data-science/2021/04/26/how-to-perform-eda-efficiently.html" rel="alternate" type="text/html" title="How to Perform EDA Efficiently" /><published>2021-04-26T00:00:00+08:00</published><updated>2021-04-26T00:00:00+08:00</updated><id>http://localhost:4000/data-science/2021/04/26/how-to-perform-eda-efficiently</id><content type="html" xml:base="http://localhost:4000/data-science/2021/04/26/how-to-perform-eda-efficiently.html">&lt;p&gt;You have been tasked to crunch a dataset and extract insights in less than 24 hours. Before we put our heads down and grind harder, is there a more efficient strategy to go about it?&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/288b4cdb093a40069a4c6a7b667303b4.js&quot;&gt; &lt;/script&gt;
+
+&lt;p&gt;I hope these tools are useful addition to your existing toolkit. Do you know a better library? Let me know!&lt;/p&gt;
+
+&lt;p&gt;Free free to fork it or download it &lt;a href=&quot;https://github.com/wyseow/datageeko/blob/main/fast_eda.ipynb&quot;&gt;here&lt;/a&gt;&lt;/p&gt;</content><author><name></name></author><category term="data-science" /><category term="eda" /><summary type="html">You have been tasked to crunch a dataset and extract insights in less than 24 hours. Before we put our heads down and grind harder, is there a more efficient strategy to go about it?</summary></entry><entry><title type="html">The Search for Universal Correlation</title><link href="http://localhost:4000/data-science/2021/04/26/the-search-for-universal-correlation.html" rel="alternate" type="text/html" title="The Search for Universal Correlation" /><published>2021-04-26T00:00:00+08:00</published><updated>2021-04-26T00:00:00+08:00</updated><id>http://localhost:4000/data-science/2021/04/26/the-search-for-universal-correlation</id><content type="html" xml:base="http://localhost:4000/data-science/2021/04/26/the-search-for-universal-correlation.html">&lt;p&gt;There are various way to measure association between variables. Is there an universal one to rule them all?&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/da075ba43dd7662f8fe6ea1931529b00.js&quot;&gt; &lt;/script&gt;
+
+&lt;p&gt;Feel free to fork or download the notebook &lt;a href=&quot;https://github.com/wyseow/datageeko/blob/main/universal_correlation.ipynb&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;</content><author><name></name></author><category term="data-science" /><summary type="html">There are various way to measure association between variables. Is there an universal one to rule them all?</summary></entry><entry><title type="html">Statistical Bias and Paradoxes that creep​ up in your data analysis</title><link href="http://localhost:4000/data-science/random-questions/statistics/2021/03/12/statistical-bias-and-paradoxes.html" rel="alternate" type="text/html" title="Statistical Bias and Paradoxes that creep​ up in your data analysis" /><published>2021-03-12T00:00:00+08:00</published><updated>2021-03-12T00:00:00+08:00</updated><id>http://localhost:4000/data-science/random-questions/statistics/2021/03/12/statistical-bias-and-paradoxes</id><content type="html" xml:base="http://localhost:4000/data-science/random-questions/statistics/2021/03/12/statistical-bias-and-paradoxes.html">&lt;p&gt;Statistical bias could creep up on our analysis and caused us to communicate the wrong insights and drive home the wrong conclusions.&lt;/p&gt;
+
+&lt;p&gt;There are actually many different kinds of bias, although most of us only associate bias with sampling bias, which is a kind of selection bias. Today, let’s put on an unbiased lens and learn about the different types of bias!&lt;/p&gt;
+
+&lt;h2 id=&quot;1-selection-bias&quot;&gt;1. Selection bias&lt;/h2&gt;
+
+&lt;p&gt;Selection bias is the bias introduced by the selection of individuals, groups or data for analysis in such a way that proper &lt;strong&gt;randomization&lt;/strong&gt; is not achieved, thereby ensuring that the sample obtained is not representative of the population intended to be analyzed.&lt;/p&gt;
+
+&lt;p&gt;Selection bias is an umbrella term that refers to the general idea as describe above and there are further divisions:&lt;/p&gt;
+
+&lt;h3 id=&quot;11-sampling-bias&quot;&gt;1.1 Sampling bias&lt;/h3&gt;
+
+&lt;p&gt;Your sample is biased because of &lt;strong&gt;non-random sampling&lt;/strong&gt;. To give an example, imagine that there are 10 students in a room and you ask if they prefer soccer or volleyball. If you only surveyed the three females and because all of them chosen volleyball, you concluded that the &lt;strong&gt;majority&lt;/strong&gt; of people like volleyball, you’d have demonstrated sampling bias.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/post_images/sampling_bias.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;As illustrated above, if you have selected and equal number of students from different genders, the conclusion would be very different.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;How to avoid:&lt;/strong&gt; Slicing and dicing your samples’ variables by their proportion or statistics might give you a clue. When a A/B test is completed, we should also perform the same test to make sure that proper sampling is done or else the A/B test result will not be valid.&lt;/p&gt;
+
+&lt;h3 id=&quot;14-confirmation-bias&quot;&gt;1.4 Confirmation bias&lt;/h3&gt;
+
+&lt;p&gt;Confirmation bias is the tendency to favour information that confirms one’s beliefs. For example: If we have spent large amount of resource to conduct a survey to find out if Brand X is more popular then Brand Y then we would be very tempted to selectively look for evidence that supports Brand X, and perhaps ignore supporting data for Brand Y.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/post_images/1DpWsgJTRvs1WUNsUdtUJdg.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;How to avoid&lt;/strong&gt;: Look for ways to challenge what you think you see. Seek out information from a range of sources, and use an approach such as the &lt;a href=&quot;https://www.mindtools.com/pages/article/newTED_07.htm&quot;&gt;Six Thinking Hats&lt;/a&gt;  technique to consider situations from multiple perspectives.&lt;/p&gt;
+
+&lt;h2 id=&quot;2-survivorship-bias&quot;&gt;2. Survivorship bias&lt;/h2&gt;
+
+&lt;p&gt;The phenomenon where only those that ‘survived’ a long process are included or excluded in an analysis, thus creating a biased sample.&lt;/p&gt;
+
+&lt;p&gt;A great example provided by Sreenivasan Chandrasekar is the following:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;em&gt;“We enroll for gym membership and attend for a few days. We see the same faces of many people who are fit, motivated and exercising everyday whenever we go to gym. After a few days we become depressed why we aren’t able to stick to our schedule and motivation more than a week when most of the people who we saw at gym could. What we didn’t see was that many of the people who had enrolled for gym membership had also stopped turning up for gym just after a week and we didn’t see them.”&lt;/em&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;3-simpsons-paradox&quot;&gt;3. Simpsons Paradox&lt;/h2&gt;
+
+&lt;p&gt;Also known as the &lt;strong&gt;Yule-Simpson effect&lt;/strong&gt;, it’s an effect in which a trend appears in several different groups of data but disappears or even reverses when these groups are combined.&lt;/p&gt;
+
+&lt;p&gt;This is a real-life example from a medical study comparing the success rates of two treatments for &lt;a href=&quot;https://en.wikipedia.org/wiki/Kidney_stone&quot;&gt;kidney stones&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;The table below shows the success rates and numbers of treatments for treatments involving both small and large kidney stones, where Treatment A includes open surgical procedures and Treatment B includes closed surgical procedures. The numbers in parentheses indicate the number of success cases over the total size of the group.&lt;/p&gt;
+
+&lt;p&gt;If we look at the aggregated success rate, we could claim that treatment B is performs better than treatment A because higher proportion of patients who have received treatment B has recovered. But the trend has reversed if we look at the groups themselves; treatment A looks more successfully in both stone sizes.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/post_images/1IfVjfdGD7RPwLDC6WzT9Uw.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;what-actually-happened&quot;&gt;What actually happened?&lt;/h3&gt;
+
+&lt;p&gt;While there are higher proportion of recovery in treatment A, the proportion is associated to lower sample size. On the other hand, although the proportion is smaller for treatment B, the larger sample size dominated the whole sample size.Therefore, when we aggregate the groups to a high level, the direction is reversed.&lt;/p&gt;
+
+&lt;p&gt;To analyse it holistically, we need to think about the process used to generate this data and a confounding variable(severity of case). If we know that doctors would favor B for smaller stones(because B is less invasive and there’s no need to be invasive if it’s deem less severe) and most importantly, patients who are less severe are likely to recover in the first place.&lt;/p&gt;
+
+&lt;p&gt;Therefore, we could say that the success rate is more influenced by the severity of the case rather the choice of treatment; if we look at the group of patients with large stones using treatment A (group 3) does worse than the group with small stones (groups 1 and 2), even if the latter used the inferior treatment B (group 2).&lt;/p&gt;
+
+&lt;h3 id=&quot;so-what&quot;&gt;So what?&lt;/h3&gt;
+
+&lt;p&gt;Where it matters is the decision making situations where it poses the following dilemma: Which data should we consult in choosing an action, the aggregated or the partitioned?&lt;/p&gt;
+
+&lt;p&gt;My question to you: Which treatment do you think its the best?&lt;/p&gt;
+
+&lt;p&gt;Simpson’s Paradox is an interesting statistical phenomenon because it reminds us that &lt;strong&gt;the data we are shown is not all the data there is.&lt;/strong&gt; We can’t be satisfied only with the numbers or a figure, we have to consider the data generation process — the causal model — responsible for &lt;em&gt;the data.&lt;/em&gt; Once we understand the mechanism producing the data, we can look for other factors influencing a result that are not shown.&lt;/p&gt;
+
+&lt;p&gt;We have to consider other variables(confounding variables) not shown here, and plays a huge role in affecting treatment type and stone size, like severity of treatment.&lt;/p&gt;
+
+&lt;h2 id=&quot;4-base-rate-fallacy&quot;&gt;4. Base rate fallacy&lt;/h2&gt;
+
+&lt;p&gt;This fallacy occurs when we disregard important information when making a judgement on how likely something is. &lt;/p&gt;
+
+&lt;p&gt;If, for example, we hear that someone loves music, we might think it’s more likely they’re a professional musician than an accountant. However, there are many more accountants than there are professional musicians. Here we have neglected that the &lt;em&gt;base rate&lt;/em&gt; for the number of accountants is far higher than the number of musicians, so we were unduly swayed by the information that the person likes music.&lt;/p&gt;
+
+&lt;p&gt;Look out: The base rate fallacy occurs when the base rate for one option is substantially higher than for another.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Another Example&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Consider testing for a rare medical condition, such as one that affects only 4% (1 in 25) of a population.&lt;/p&gt;
+
+&lt;p&gt;Let’s say there is a test for the condition, but it’s not perfect. If someone has the condition, the test will correctly identify them as being ill around 92% of the time. If someone &lt;em&gt;doesn’t&lt;/em&gt; have the condition, the test will correctly identify them as being healthy 75% of the time.&lt;/p&gt;
+
+&lt;p&gt;So if we test a group of people, and find that over a quarter of them are diagnosed as being ill, we might expect that most of these people really do have the condition. But we’d be wrong.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/post_images/base_rate_fallacy-1024x557.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;According to our numbers above, of the 4% of patients who are ill, almost 92% will be correctly diagnosed as ill (that is, about 3.67% of the overall population). But of the 96% of patients who are not ill, 25% will be &lt;em&gt;incorrectly&lt;/em&gt; diagnosed as ill (that’s 24% of the overall population).&lt;/p&gt;
+
+&lt;p&gt;What this means is that of the approximately 27.67% of the population who are diagnosed as ill, only around 3.67% actually are. So of the people who were diagnosed as ill, only around 13% (that is, 3.67%/27.67%) actually are unwell.&lt;/p&gt;
+
+&lt;h3 id=&quot;solution&quot;&gt;Solution&lt;/h3&gt;
+
+&lt;p&gt;Consider the false positive, false negative rate of the test, and not just pure accuracy. In this case, the false positive rate is starkly high at 25% and the false negative rate is 8%, so just from thinking about this rate and the number of people who are likely to be healthy should ring some bells in our head.&lt;/p&gt;</content><author><name></name></author><category term="data-science" /><category term="random-questions" /><category term="statistics" /><category term="bias" /><category term="paradox" /><summary type="html">Statistical bias could creep up on our analysis and caused us to communicate the wrong insights and drive home the wrong conclusions.</summary></entry><entry><title type="html">Practical A/B Testing</title><link href="http://localhost:4000/data-science/statistics/2021/02/11/practical-a-b-testing.html" rel="alternate" type="text/html" title="Practical A/B Testing" /><published>2021-02-11T00:00:00+08:00</published><updated>2021-02-11T00:00:00+08:00</updated><id>http://localhost:4000/data-science/statistics/2021/02/11/practical-a-b-testing</id><content type="html" xml:base="http://localhost:4000/data-science/statistics/2021/02/11/practical-a-b-testing.html">&lt;p&gt;A Jupyter notebook is embedded within this post. Visit the notebook &lt;a href=&quot;https://github.com/wyseow/datageeko/blob/main/ab-testing/AB_testing_v2.ipynb&quot;&gt;here&lt;/a&gt; if it cannot render properly in your browser.&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/1cdbf101be9de3b6ec07cbc203cb8727.js&quot;&gt; &lt;/script&gt;
+
+&lt;p&gt;Welcome to fork this notebook @ &lt;a href=&quot;https://github.com/wyseow/datageeko/blob/main/ab-testing/AB_testing_v2.ipynb&quot;&gt;https://github.com/wyseow/datageeko/blob/main/ab-testing/AB_testing_v2.ipynb&lt;/a&gt;&lt;/p&gt;</content><author><name></name></author><category term="data-science" /><category term="statistics" /><summary type="html">A Jupyter notebook is embedded within this post. Visit the notebook here if it cannot render properly in your browser.</summary></entry><entry><title type="html">Test your knowledge - Tricky Probability questions with answers</title><link href="http://localhost:4000/statistics/test-your-knowledge/2021/01/22/test-your-knowledge-tricky-probability-questions-with-answers.html" rel="alternate" type="text/html" title="Test your knowledge - Tricky Probability questions with answers" /><published>2021-01-22T00:00:00+08:00</published><updated>2021-01-22T00:00:00+08:00</updated><id>http://localhost:4000/statistics/test-your-knowledge/2021/01/22/test-your-knowledge-tricky-probability-questions-with-answers</id><content type="html" xml:base="http://localhost:4000/statistics/test-your-knowledge/2021/01/22/test-your-knowledge-tricky-probability-questions-with-answers.html">&lt;p&gt;This post is displayed directly from &lt;a href=&quot;https://gist.github.com/wyseow/594c6c54d073f910ac22e4ca76a23891&quot;&gt;my notebook @ Github&lt;/a&gt;. You might want to view it on Github directly if it doesn’t render properly on your browser.&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/594c6c54d073f910ac22e4ca76a23891.js&quot;&gt; &lt;/script&gt;
+
+&lt;p&gt;Download or fork notebook &lt;a href=&quot;https://gist.github.com/wyseow/594c6c54d073f910ac22e4ca76a23891&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;</content><author><name></name></author><category term="statistics" /><category term="test-your-knowledge" /><summary type="html">This post is displayed directly from my notebook @ Github. You might want to view it on Github directly if it doesn’t render properly on your browser.</summary></entry><entry><title type="html">Let’s say we have 1 million app rider journey trips. We want to build a model to predict ETA after a rider makes a ride request…</title><link href="http://localhost:4000/data-science/machine-learning/test-your-knowledge/2020/12/29/rider-eta-question.html" rel="alternate" type="text/html" title="Let’s say we have 1 million app rider journey trips. We want to build a model to predict ETA after a rider makes a ride request…" /><published>2020-12-29T00:00:00+08:00</published><updated>2020-12-29T00:00:00+08:00</updated><id>http://localhost:4000/data-science/machine-learning/test-your-knowledge/2020/12/29/rider-eta-question</id><content type="html" xml:base="http://localhost:4000/data-science/machine-learning/test-your-knowledge/2020/12/29/rider-eta-question.html">&lt;p&gt;..how would we know if we have enough data to create an accurate enough model?&lt;/p&gt;
+
+&lt;p&gt;Questions to consider:&lt;br /&gt;
+1) &lt;strong&gt;What is the definition of “accurate enough”?&lt;/strong&gt; How much error is acceptable?&lt;br /&gt;
+Before thinking about modelling metrics, from a business perspective, we might have an idea of the level of accuracy we need to hit a product goal, and it might not be reasonable from an implementation perspective. For example, if goal is to have an accuracy of RMSE of 1-min and in reality the data is sparse(0 for most data points), oddly distributed(only have data for certain groups) or noisy(values stored inaccurately) then it might be diffcult to achieve the goal.&lt;/p&gt;
+
+&lt;p&gt;2) &lt;strong&gt;Are there any existing, simple models or hieristics driven rule-based systems that could serve as baseline?&lt;/strong&gt;&lt;br /&gt;
+If yes, we could observe the relative improvement by the new model, and determine if that is accurate enough for business users.&lt;/p&gt;
+
+&lt;p&gt;Other possible solutions:&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Learning curves:&lt;/strong&gt; Use Learning curves to observe accuracy when training data is progressively increased. If we fit our model on 20%..50%..80% of our data size and then cross-validate to determine model accuracy, we can then determine how much more data we need to achieve a certain accuracy level.&lt;/p&gt;
+
+&lt;p&gt;For example. If we reach 75% accuracy with 500K datapoints but then only 77% accuracy with 1 million datapoints, then adding more data will only yield marginal results. Also, we’ll realize that our model is not predicting well enough with its existing features since doubling the training data size did not significantly increase the accuracy rate. This would inform us that we need to re-evaluate our features rather than collect more data.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Cross validation (CV):&lt;/strong&gt; We could use cross validation to see how well the model would perform in pratice, and generalize to unseen data.&lt;/p&gt;
+
+&lt;p&gt;CV partitions a sample of data into complementary subsets, performing the modelling on one subset(training set), and validating the model on the other subset (validation or testing set). Multiple rounds of cross-validation are performed using different partitions, and the validation results are averaged over the rounds to give an estimate of the model’s predictive performance.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Statistical approach&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;We could also use the Hoeffding Inequality to estimate sample size given confidence level.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://malishoaib.wordpress.com/2017/09/08/sample-size-estimation-for-machine-learning-models-using-hoeffdings-inequality/&quot;&gt;Here&lt;/a&gt;’s a good post on more information on Hoeffding Inequality&lt;/p&gt;</content><author><name></name></author><category term="data-science" /><category term="machine-learning" /><category term="test-your-knowledge" /><summary type="html">..how would we know if we have enough data to create an accurate enough model?</summary></entry><entry><title type="html">Let’s say you have a categorical variable with thousands of distinct values, how would you encode it?</title><link href="http://localhost:4000/machine-learning/test-your-knowledge/2020/12/28/lets-say-you-have-a-categorical-variable-with-thousands-of-distinct-values-how-would-you-encode-it.html" rel="alternate" type="text/html" title="Let’s say you have a categorical variable with thousands of distinct values, how would you encode it?" /><published>2020-12-28T00:00:00+08:00</published><updated>2020-12-28T00:00:00+08:00</updated><id>http://localhost:4000/machine-learning/test-your-knowledge/2020/12/28/lets-say-you-have-a-categorical-variable-with-thousands-of-distinct-values-how-would-you-encode-it</id><content type="html" xml:base="http://localhost:4000/machine-learning/test-your-knowledge/2020/12/28/lets-say-you-have-a-categorical-variable-with-thousands-of-distinct-values-how-would-you-encode-it.html">&lt;p&gt;One-hot encoding is out of the question since a large number of distinct values will result in large dimensionality problems(Curse of Dimensionality) in modeling stage.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;One-hot encoding:&lt;/strong&gt; Suitable for catgorical variables where no ordinal relationship exists. Map an unique value to a binary vector that is all 0 values except the index of the encoded label, which is marked with 1.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Side track: why high dimensionality is an issue:&lt;br /&gt;
+Explanation:&lt;br /&gt;
+1) If we have more features than observations, we run the risk of overfitting the model; bad out of sample performance.&lt;br /&gt;
+2) Clustering is harder: every observation appear equidistant(same distance) from each other and this makes the distance metric(eg. euclidean) which quantity similarity, thinks that all observations are equally alike, and hence no meaningful clusters can be formed.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;The next choice is label or ordinal encoding depending on whether they have a directional relationship.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Label encoding&lt;/strong&gt;: Map an unique value to a integer&lt;br /&gt;
+&lt;strong&gt;Ordinal encoding:&lt;/strong&gt; Map an unique value to an integer in a specific order that express directional relationship. Eg.(cold, warm, hot-&amp;gt;1,2,3)&lt;/p&gt;
+
+&lt;p&gt;An increasingly popualar choice in the deep learning space is to use embeddings.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Embeddings:&lt;/strong&gt; Learn an vector representation of the values where the properties of the vector are learned while training a neural network model. 2nd benefit: The learned vector space can be used to infer the similarity and relationship between categorcial values as close values cluster together in the process of training. 3rd benefit: The vectors can be re-used for future models or applications without retraining.&lt;/p&gt;
+
+&lt;p&gt;Do you know other great or better ways of encoding categorical variables with massive number of values? Comment below!&lt;/p&gt;</content><author><name></name></author><category term="machine-learning" /><category term="test-your-knowledge" /><summary type="html">One-hot encoding is out of the question since a large number of distinct values will result in large dimensionality problems(Curse of Dimensionality) in modeling stage.</summary></entry><entry><title type="html">Let’s say we want to build a model to predict booking prices for a hotel booking company. Between linear regression and random forest regression, which model would perform better and why?</title><link href="http://localhost:4000/machine-learning/statistics/test-your-knowledge/2020/12/28/build-hotel-booking-price-question.html" rel="alternate" type="text/html" title="Let’s say we want to build a model to predict booking prices for a hotel booking company. Between linear regression and random forest regression, which model would perform better and why?" /><published>2020-12-28T00:00:00+08:00</published><updated>2020-12-28T00:00:00+08:00</updated><id>http://localhost:4000/machine-learning/statistics/test-your-knowledge/2020/12/28/build-hotel-booking-price-question</id><content type="html" xml:base="http://localhost:4000/machine-learning/statistics/test-your-knowledge/2020/12/28/build-hotel-booking-price-question.html">&lt;p&gt;Before we quickly answer “Random Forest”, let’s take a step back and put on our structured thinking cap to ask ourselves why and perhaps in real life, companies might take the other choice.&lt;/p&gt;
+
+&lt;p&gt;Questions to consider:&lt;br /&gt;
+&lt;strong&gt;1) What are the features available for us to model?&lt;/strong&gt;&lt;br /&gt;
+If the features are mostly categorical, especially with large number of distinct values, then linear regression might not be a good choice because it can’t handle cardinality as well as random forest.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;2) What are the underlying statistics of the features?&lt;/strong&gt;&lt;br /&gt;
+If extreme outliers are present and retained for valid reasons, then linear regression can be affected.&lt;/p&gt;
+
+&lt;p&gt;There are assumptions of linear regression that needs to be satisifed:&lt;br /&gt;
+1) Linear relationship between indepdent and dependent variables&lt;br /&gt;
+2) Residuals exhibits normality(mean of 0, unit variance)&lt;br /&gt;
+3) Homoscedasticity: Variance of residuals is constant for all observations.&lt;br /&gt;
+4) No multi-colinearity between indepedent variables.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;2) What is the definition of “better”?&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;We assume the definition refers to accuracy in prediction. Other definition could be processing speed, etc.&lt;/p&gt;
+
+&lt;p&gt;Generally, random forest yields higher accuracy than linear regression but it cannot extrapolate values: unable to predict values beyond the range that it has observed during training time. In our context, this means that it cannot predict a sudden, extremely high increase in booking price that it hasn’t seen before.&lt;/p&gt;
+
+&lt;p&gt;Solutions:&lt;br /&gt;
+1) Extension of random forests: trees are grown where the terminal leaves contain linear regression models (eg.Cubist)&lt;br /&gt;
+2) Neural networks&lt;br /&gt;
+2) Use linear methods like linear regression&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Business interpretability&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Either models provide means for feature importance, which is helpful for business to understand the behavoir of the models or identify drivers behind the booking price.&lt;/p&gt;
+
+&lt;p&gt;What would you choose? Comment below!&lt;/p&gt;</content><author><name></name></author><category term="machine-learning" /><category term="statistics" /><category term="test-your-knowledge" /><summary type="html">Before we quickly answer “Random Forest”, let’s take a step back and put on our structured thinking cap to ask ourselves why and perhaps in real life, companies might take the other choice.</summary></entry><entry><title type="html">Illustrated guide to Hypothesis testing using Python</title><link href="http://localhost:4000/data-science/python/statistics/2020/12/18/illustrated-guide-to-hypothesis-testing-using-python.html" rel="alternate" type="text/html" title="Illustrated guide to Hypothesis testing using Python" /><published>2020-12-18T00:00:00+08:00</published><updated>2020-12-18T00:00:00+08:00</updated><id>http://localhost:4000/data-science/python/statistics/2020/12/18/illustrated-guide-to-hypothesis-testing-using-python</id><content type="html" xml:base="http://localhost:4000/data-science/python/statistics/2020/12/18/illustrated-guide-to-hypothesis-testing-using-python.html">&lt;p&gt;This is a hands-on guide to hypothesis testing, where we use both “hand coded” and the common statistical libraries, to calculate different statistical test.&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/9d8fb802337f4243017ca7efaa093d89.js&quot;&gt; &lt;/script&gt;
+
+&lt;p&gt;The above Jupyter notebook can be downloaded from: &lt;a href=&quot;https://github.com/wyseow/datageeko/blob/main/hypothesis-testing/Hypothesis%20testing.ipynb&quot;&gt;https://github.com/wyseow/datageeko/blob/main/hypothesis-testing/Hypothesis%20testing.ipynb&lt;/a&gt;&lt;/p&gt;</content><author><name></name></author><category term="data-science" /><category term="python" /><category term="statistics" /><category term="hypothesis-testing" /><category term="python" /><category term="statistics" /><summary type="html">This is a hands-on guide to hypothesis testing, where we use both “hand coded” and the common statistical libraries, to calculate different statistical test.</summary></entry></feed>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>Let’s say we want to build a model to predict booking prices for a hotel booking company. Between linear regression and random forest regression, which model would perform better and why? | DataGeeko.com</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Let’s say we want to build a model to predict booking prices for a hotel booking company. Between linear regression and random forest regression, which model would perform better and why?" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Before we quickly answer “Random Forest”, let’s take a step back and put on our structured thinking cap to ask ourselves why and perhaps in real life, companies might take the other choice." />
+<meta property="og:description" content="Before we quickly answer “Random Forest”, let’s take a step back and put on our structured thinking cap to ask ourselves why and perhaps in real life, companies might take the other choice." />
+<link rel="canonical" href="http://localhost:4000/machine-learning/statistics/test-your-knowledge/2020/12/28/build-hotel-booking-price-question.html" />
+<meta property="og:url" content="http://localhost:4000/machine-learning/statistics/test-your-knowledge/2020/12/28/build-hotel-booking-price-question.html" />
+<meta property="og:site_name" content="DataGeeko.com" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-12-28T00:00:00+08:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Let’s say we want to build a model to predict booking prices for a hotel booking company. Between linear regression and random forest regression, which model would perform better and why?" />
+<script type="application/ld+json">
+{"description":"Before we quickly answer “Random Forest”, let’s take a step back and put on our structured thinking cap to ask ourselves why and perhaps in real life, companies might take the other choice.","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/machine-learning/statistics/test-your-knowledge/2020/12/28/build-hotel-booking-price-question.html"},"url":"http://localhost:4000/machine-learning/statistics/test-your-knowledge/2020/12/28/build-hotel-booking-price-question.html","headline":"Let’s say we want to build a model to predict booking prices for a hotel booking company. Between linear regression and random forest regression, which model would perform better and why?","dateModified":"2020-12-28T00:00:00+08:00","datePublished":"2020-12-28T00:00:00+08:00","@type":"BlogPosting","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="DataGeeko.com" /></head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">DataGeeko.com</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Let&#39;s say we want to build a model to predict booking prices for a hotel booking company. Between linear regression and random forest regression, which model would perform better and why?</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2020-12-28T00:00:00+08:00" itemprop="datePublished">Dec 28, 2020
+      </time></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p>Before we quickly answer “Random Forest”, let’s take a step back and put on our structured thinking cap to ask ourselves why and perhaps in real life, companies might take the other choice.</p>
+
+<p>Questions to consider:<br />
+<strong>1) What are the features available for us to model?</strong><br />
+If the features are mostly categorical, especially with large number of distinct values, then linear regression might not be a good choice because it can’t handle cardinality as well as random forest.</p>
+
+<p><strong>2) What are the underlying statistics of the features?</strong><br />
+If extreme outliers are present and retained for valid reasons, then linear regression can be affected.</p>
+
+<p>There are assumptions of linear regression that needs to be satisifed:<br />
+1) Linear relationship between indepdent and dependent variables<br />
+2) Residuals exhibits normality(mean of 0, unit variance)<br />
+3) Homoscedasticity: Variance of residuals is constant for all observations.<br />
+4) No multi-colinearity between indepedent variables.</p>
+
+<p><strong>2) What is the definition of “better”?</strong></p>
+
+<p>We assume the definition refers to accuracy in prediction. Other definition could be processing speed, etc.</p>
+
+<p>Generally, random forest yields higher accuracy than linear regression but it cannot extrapolate values: unable to predict values beyond the range that it has observed during training time. In our context, this means that it cannot predict a sudden, extremely high increase in booking price that it hasn’t seen before.</p>
+
+<p>Solutions:<br />
+1) Extension of random forests: trees are grown where the terminal leaves contain linear regression models (eg.Cubist)<br />
+2) Neural networks<br />
+2) Use linear methods like linear regression</p>
+
+<p><strong>Business interpretability</strong></p>
+
+<p>Either models provide means for feature importance, which is helpful for business to understand the behavoir of the models or identify drivers behind the booking price.</p>
+
+<p>What would you choose? Comment below!</p>
+
+  </div><a class="u-url" href="/machine-learning/statistics/test-your-knowledge/2020/12/28/build-hotel-booking-price-question.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">DataGeeko.com</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name"></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://www.linkedin.com/in/wei-yeng-seow-22405488"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#linkedin"></use></svg> <span class="username">wei-yeng-seow-22405488</span></a></li><li><a href="https://github.com/wyseow"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">wyseow</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>You just found DataGeeko.com! This is my personal website where I share fun experiments,  projects and insights about data science and machine learning.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

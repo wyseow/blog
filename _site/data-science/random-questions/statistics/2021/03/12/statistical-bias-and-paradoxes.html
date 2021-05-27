@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>Statistical Bias and Paradoxes that creep​ up in your data analysis | DataGeeko.com</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Statistical Bias and Paradoxes that creep​ up in your data analysis" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Statistical bias could creep up on our analysis and caused us to communicate the wrong insights and drive home the wrong conclusions." />
+<meta property="og:description" content="Statistical bias could creep up on our analysis and caused us to communicate the wrong insights and drive home the wrong conclusions." />
+<link rel="canonical" href="http://localhost:4000/data-science/random-questions/statistics/2021/03/12/statistical-bias-and-paradoxes.html" />
+<meta property="og:url" content="http://localhost:4000/data-science/random-questions/statistics/2021/03/12/statistical-bias-and-paradoxes.html" />
+<meta property="og:site_name" content="DataGeeko.com" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2021-03-12T00:00:00+08:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Statistical Bias and Paradoxes that creep​ up in your data analysis" />
+<script type="application/ld+json">
+{"description":"Statistical bias could creep up on our analysis and caused us to communicate the wrong insights and drive home the wrong conclusions.","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/data-science/random-questions/statistics/2021/03/12/statistical-bias-and-paradoxes.html"},"url":"http://localhost:4000/data-science/random-questions/statistics/2021/03/12/statistical-bias-and-paradoxes.html","headline":"Statistical Bias and Paradoxes that creep​ up in your data analysis","dateModified":"2021-03-12T00:00:00+08:00","datePublished":"2021-03-12T00:00:00+08:00","@type":"BlogPosting","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="DataGeeko.com" /></head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">DataGeeko.com</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Statistical Bias and Paradoxes that creep​ up in your data analysis</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2021-03-12T00:00:00+08:00" itemprop="datePublished">Mar 12, 2021
+      </time></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p>Statistical bias could creep up on our analysis and caused us to communicate the wrong insights and drive home the wrong conclusions.</p>
+
+<p>There are actually many different kinds of bias, although most of us only associate bias with sampling bias, which is a kind of selection bias. Today, let’s put on an unbiased lens and learn about the different types of bias!</p>
+
+<h2 id="1-selection-bias">1. Selection bias</h2>
+
+<p>Selection bias is the bias introduced by the selection of individuals, groups or data for analysis in such a way that proper <strong>randomization</strong> is not achieved, thereby ensuring that the sample obtained is not representative of the population intended to be analyzed.</p>
+
+<p>Selection bias is an umbrella term that refers to the general idea as describe above and there are further divisions:</p>
+
+<h3 id="11-sampling-bias">1.1 Sampling bias</h3>
+
+<p>Your sample is biased because of <strong>non-random sampling</strong>. To give an example, imagine that there are 10 students in a room and you ask if they prefer soccer or volleyball. If you only surveyed the three females and because all of them chosen volleyball, you concluded that the <strong>majority</strong> of people like volleyball, you’d have demonstrated sampling bias.</p>
+
+<p><img src="/post_images/sampling_bias.jpg" alt="" /></p>
+
+<p>As illustrated above, if you have selected and equal number of students from different genders, the conclusion would be very different.</p>
+
+<p><strong>How to avoid:</strong> Slicing and dicing your samples’ variables by their proportion or statistics might give you a clue. When a A/B test is completed, we should also perform the same test to make sure that proper sampling is done or else the A/B test result will not be valid.</p>
+
+<h3 id="14-confirmation-bias">1.4 Confirmation bias</h3>
+
+<p>Confirmation bias is the tendency to favour information that confirms one’s beliefs. For example: If we have spent large amount of resource to conduct a survey to find out if Brand X is more popular then Brand Y then we would be very tempted to selectively look for evidence that supports Brand X, and perhaps ignore supporting data for Brand Y.</p>
+
+<p><img src="/post_images/1DpWsgJTRvs1WUNsUdtUJdg.png" alt="" /></p>
+
+<p><strong>How to avoid</strong>: Look for ways to challenge what you think you see. Seek out information from a range of sources, and use an approach such as the <a href="https://www.mindtools.com/pages/article/newTED_07.htm">Six Thinking Hats</a>  technique to consider situations from multiple perspectives.</p>
+
+<h2 id="2-survivorship-bias">2. Survivorship bias</h2>
+
+<p>The phenomenon where only those that ‘survived’ a long process are included or excluded in an analysis, thus creating a biased sample.</p>
+
+<p>A great example provided by Sreenivasan Chandrasekar is the following:</p>
+
+<blockquote>
+  <p><em>“We enroll for gym membership and attend for a few days. We see the same faces of many people who are fit, motivated and exercising everyday whenever we go to gym. After a few days we become depressed why we aren’t able to stick to our schedule and motivation more than a week when most of the people who we saw at gym could. What we didn’t see was that many of the people who had enrolled for gym membership had also stopped turning up for gym just after a week and we didn’t see them.”</em></p>
+</blockquote>
+
+<h2 id="3-simpsons-paradox">3. Simpsons Paradox</h2>
+
+<p>Also known as the <strong>Yule-Simpson effect</strong>, it’s an effect in which a trend appears in several different groups of data but disappears or even reverses when these groups are combined.</p>
+
+<p>This is a real-life example from a medical study comparing the success rates of two treatments for <a href="https://en.wikipedia.org/wiki/Kidney_stone">kidney stones</a>.</p>
+
+<p>The table below shows the success rates and numbers of treatments for treatments involving both small and large kidney stones, where Treatment A includes open surgical procedures and Treatment B includes closed surgical procedures. The numbers in parentheses indicate the number of success cases over the total size of the group.</p>
+
+<p>If we look at the aggregated success rate, we could claim that treatment B is performs better than treatment A because higher proportion of patients who have received treatment B has recovered. But the trend has reversed if we look at the groups themselves; treatment A looks more successfully in both stone sizes.</p>
+
+<p><img src="/post_images/1IfVjfdGD7RPwLDC6WzT9Uw.png" alt="" /></p>
+
+<h3 id="what-actually-happened">What actually happened?</h3>
+
+<p>While there are higher proportion of recovery in treatment A, the proportion is associated to lower sample size. On the other hand, although the proportion is smaller for treatment B, the larger sample size dominated the whole sample size.Therefore, when we aggregate the groups to a high level, the direction is reversed.</p>
+
+<p>To analyse it holistically, we need to think about the process used to generate this data and a confounding variable(severity of case). If we know that doctors would favor B for smaller stones(because B is less invasive and there’s no need to be invasive if it’s deem less severe) and most importantly, patients who are less severe are likely to recover in the first place.</p>
+
+<p>Therefore, we could say that the success rate is more influenced by the severity of the case rather the choice of treatment; if we look at the group of patients with large stones using treatment A (group 3) does worse than the group with small stones (groups 1 and 2), even if the latter used the inferior treatment B (group 2).</p>
+
+<h3 id="so-what">So what?</h3>
+
+<p>Where it matters is the decision making situations where it poses the following dilemma: Which data should we consult in choosing an action, the aggregated or the partitioned?</p>
+
+<p>My question to you: Which treatment do you think its the best?</p>
+
+<p>Simpson’s Paradox is an interesting statistical phenomenon because it reminds us that <strong>the data we are shown is not all the data there is.</strong> We can’t be satisfied only with the numbers or a figure, we have to consider the data generation process — the causal model — responsible for <em>the data.</em> Once we understand the mechanism producing the data, we can look for other factors influencing a result that are not shown.</p>
+
+<p>We have to consider other variables(confounding variables) not shown here, and plays a huge role in affecting treatment type and stone size, like severity of treatment.</p>
+
+<h2 id="4-base-rate-fallacy">4. Base rate fallacy</h2>
+
+<p>This fallacy occurs when we disregard important information when making a judgement on how likely something is. </p>
+
+<p>If, for example, we hear that someone loves music, we might think it’s more likely they’re a professional musician than an accountant. However, there are many more accountants than there are professional musicians. Here we have neglected that the <em>base rate</em> for the number of accountants is far higher than the number of musicians, so we were unduly swayed by the information that the person likes music.</p>
+
+<p>Look out: The base rate fallacy occurs when the base rate for one option is substantially higher than for another.</p>
+
+<p><strong>Another Example</strong></p>
+
+<p>Consider testing for a rare medical condition, such as one that affects only 4% (1 in 25) of a population.</p>
+
+<p>Let’s say there is a test for the condition, but it’s not perfect. If someone has the condition, the test will correctly identify them as being ill around 92% of the time. If someone <em>doesn’t</em> have the condition, the test will correctly identify them as being healthy 75% of the time.</p>
+
+<p>So if we test a group of people, and find that over a quarter of them are diagnosed as being ill, we might expect that most of these people really do have the condition. But we’d be wrong.</p>
+
+<p><img src="/post_images/base_rate_fallacy-1024x557.png" alt="" /></p>
+
+<p>According to our numbers above, of the 4% of patients who are ill, almost 92% will be correctly diagnosed as ill (that is, about 3.67% of the overall population). But of the 96% of patients who are not ill, 25% will be <em>incorrectly</em> diagnosed as ill (that’s 24% of the overall population).</p>
+
+<p>What this means is that of the approximately 27.67% of the population who are diagnosed as ill, only around 3.67% actually are. So of the people who were diagnosed as ill, only around 13% (that is, 3.67%/27.67%) actually are unwell.</p>
+
+<h3 id="solution">Solution</h3>
+
+<p>Consider the false positive, false negative rate of the test, and not just pure accuracy. In this case, the false positive rate is starkly high at 25% and the false negative rate is 8%, so just from thinking about this rate and the number of people who are likely to be healthy should ring some bells in our head.</p>
+
+  </div><a class="u-url" href="/data-science/random-questions/statistics/2021/03/12/statistical-bias-and-paradoxes.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">DataGeeko.com</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name"></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://www.linkedin.com/in/wei-yeng-seow-22405488"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#linkedin"></use></svg> <span class="username">wei-yeng-seow-22405488</span></a></li><li><a href="https://github.com/wyseow"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">wyseow</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>You just found DataGeeko.com! This is my personal website where I share fun experiments,  projects and insights about data science and machine learning.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

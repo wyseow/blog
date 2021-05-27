@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>Crossing the language barrier with NLP | DataGeeko.com</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Crossing the language barrier with NLP" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="One of the biggest open problems in NLP is the unavailability of many non-English dataset. Dealing with low-resource/low-data setting can be quite frustrating when it seems impossible to transfer the same success we saw in various English NLP tasks. In fact, there are voices within the NLP community to advocate research and focus on low-resource language instead of spending the effort on beating the benchmark." />
+<meta property="og:description" content="One of the biggest open problems in NLP is the unavailability of many non-English dataset. Dealing with low-resource/low-data setting can be quite frustrating when it seems impossible to transfer the same success we saw in various English NLP tasks. In fact, there are voices within the NLP community to advocate research and focus on low-resource language instead of spending the effort on beating the benchmark." />
+<link rel="canonical" href="http://localhost:4000/machine-learning/nlp/2019/07/18/crossing-the-language-barrier-with-nlp.html" />
+<meta property="og:url" content="http://localhost:4000/machine-learning/nlp/2019/07/18/crossing-the-language-barrier-with-nlp.html" />
+<meta property="og:site_name" content="DataGeeko.com" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2019-07-18T00:00:00+08:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Crossing the language barrier with NLP" />
+<script type="application/ld+json">
+{"description":"One of the biggest open problems in NLP is the unavailability of many non-English dataset. Dealing with low-resource/low-data setting can be quite frustrating when it seems impossible to transfer the same success we saw in various English NLP tasks. In fact, there are voices within the NLP community to advocate research and focus on low-resource language instead of spending the effort on beating the benchmark.","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/machine-learning/nlp/2019/07/18/crossing-the-language-barrier-with-nlp.html"},"url":"http://localhost:4000/machine-learning/nlp/2019/07/18/crossing-the-language-barrier-with-nlp.html","headline":"Crossing the language barrier with NLP","dateModified":"2019-07-18T00:00:00+08:00","datePublished":"2019-07-18T00:00:00+08:00","@type":"BlogPosting","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="DataGeeko.com" /></head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">DataGeeko.com</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Crossing the language barrier with NLP</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2019-07-18T00:00:00+08:00" itemprop="datePublished">Jul 18, 2019
+      </time></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p>One of the biggest open problems in NLP is the unavailability of many non-English dataset. Dealing with low-resource/low-data setting can be quite frustrating when it seems impossible to transfer the same success we saw in various English NLP tasks. In fact, there are voices within the NLP community to advocate research and <a href="http://ruder.io/4-biggest-open-problems-in-nlp/">focus on low-resource language</a> instead of spending the effort on beating the benchmark.</p>
+
+<p>Fortunately, promising ideas have increasingly appear in the last couple of years, such as Multi-Lingual Language Model, Cross-lingual representations and even a new cross-lingual dataset which would lower the entry barrier for many NLP practitioners. Let’s look at some of the interesting ones.</p>
+
+<h4 id="xnli-the-cross-lingual-nli-corpus">XNLI: The Cross-Lingual NLI Corpus</h4>
+
+<p>Before we touch on any new models, we should look at this exciting new dataset.</p>
+
+<p>XNLI is an evaluation corpus for cross-lingual <strong>Natural Language Inference (NLI)</strong> task through sentence classification, in 15 languages. There are 5k test, and 2.5k dev pairs of sentences annotated with textual entailment and translated into 14 languages. <strong>Recognising textual entailment (RTE)</strong>, an evaluation method (I call that a mini-task) that supports the task of NLI, we usually have a premise, a corresponding hypothesis and the model predicts whether they agree to each other. Here’s an example:</p>
+
+<p><img src="https://camo.githubusercontent.com/b897558046365450b4b49fd23f2bc72adbd3b0bd/68747470733a2f2f646c2e666261697075626c696366696c65732e636f6d2f584e4c492f786e6c695f6578616d706c65732e706e67" alt="" /></p>
+
+<p>Yay or Nay.</p>
+
+<p>Some people might argue that NLI isn’t the usual downstream task in many practical applications, but NLI is a decent middle-ground for evaluating the Cross-Lingual Understanding(XLU) - which is the cross-lingual version of Natural Language Understanding (NLU) - capabilities of a cross-lingual NLP model.</p>
+
+<p>That’s quite a mouthful of acronyms. To be more precise, Natural Language Processing (NLP) is an umbrella term that involve machines to perform textual tasks through processing. On the other hand, Natural Language Understanding (NLU) could be seen as a smaller subset of NLP that concerns about getting machines to really understand the meanings of text and we use <a href="https://gluebenchmark.com/tasks">NLI datasets</a> to measure how well the machines could understand. But you might ask whats the definition of understanding, and for now, our definition of understanding stays within the realm of classifying entailment, sentiment, similarity and similar classification task.</p>
+
+<p>There’s 1 more: Natural Language Generation (NLG), which concerns about the capability of generating a sequence of words. I believe that a model needs to attain a decent NLU before being able to perform NLG tasks well; the model might be generating fluent sentences but it doesn’t make sense because it doesn’t understand the underlying meanings of the words. And by the way, that’s a separate task of <a href="https://nlpprogress.com/english/common_sense.html">common sense reasoning</a>, which the NLP community has been talking about it recently. I personally think that NLI is a lower level form of “linguistic intelligence” compared to NLU because it’s relatively easy for models to know which sentences are contradicting, or the sentiment of the sentence merely by memorising certain words.</p>
+
+<p>I have digressed.</p>
+
+<h4 id="multilingual-bert">MultiLingual BERT</h4>
+
+<p>It turns out that the famous BERT model, which has broken the SQuAD leaderboard when it first came out, has a <strong><a href="https://github.com/google-research/bert/blob/master/multilingual.md">Multilingual</a></strong> version (M-BERT) which is pretrained from monolingual corpora in 104 languages! It’s a great news to us folks who build NLP models for non-English markets because none of the similar large pretrained language models such as OpenAI GPT, GPT2, <a href="https://github.com/facebookresearch/XLM">XLM</a>, or even the newest <a href="https://github.com/microsoft/MASS">MASS</a> from Microsoft is trained across so many languages. The closest one is probably <a href="https://forums.fast.ai/t/language-model-zoo-gorilla/14623">ULMFIT</a> but its not official and community contributed.</p>
+
+<p>🗣But then again you might ask: <strong>How multilingual is M-BERT?</strong></p>
+
+<p>That’s a good question and Google research reveals some interesting answers from their <a href="https://arxiv.org/abs/1906.01502">paper</a>.</p>
+
+<p>The multilingual representation generalised across languages pretty well but performs best when the languages has a <strong>high lexical overlap</strong> (written in same scripts).</p>
+
+<p>🗣Then again you would say: isn’t that quite obvious?</p>
+
+<p>If they share a single multilingual vocabulary, word pieces present during the fine tuning also appears in the evaluation, there’s probably some “leakage”, or memorisation of vocabulary. Is this a superficial form of generalisation? Most importantly, is transfer even possible for languages that don’t share the same script (EN-JA)?</p>
+
+<p><img src="/post_images/Screen-Shot-2019-07-18-at-2.22.16-PM.png" alt="" /></p>
+
+<p>Yes, transfer is still possible.</p>
+
+<p>An experiment which uses the Name Entity Recognition(NER) task across 16 languages show that although score is relatively flat for a range of lexical overlap, it could still achieve at least 40% even if there’s no lexical overlap. In other words, M-BERT probably learn a deeper representation than simple vocabulary memorisation and still somewhat useful for languages which are written in different scripts, although not as much.</p>
+
+<p>I find that quite impressive because it was trained on separate monolingual corpora so somehow it has learn a common subspace which represents useful linguistic information, in a language agnostic way.</p>
+
+<p>On a similar note, this advantage of lexical overlap echoed an observation from the paper for XLM, where they are able to improve the performance of a LM by adding more data from a language that share the same script.</p>
+
+<p><img src="/post_images/Screen-Shot-2019-07-18-at-3.09.38-PM.png" alt="" /></p>
+
+<p>It is likely to work best for <strong>typologically similar</strong> languages.</p>
+
+<p>It uses the example of EN-JA pair, which are not typologically similar. English words are ordered in Subject-Verb-Object (SVO) while Japanese in SOV. On the other hand, if we test the transferability on a language that is of similar ordering to English, such as Bulgarian, it works great. It shows that M-BERT have trouble generalising between languages of different ordering.</p>
+
+<p><img src="/post_images/Screen-Shot-2019-07-18-at-12.08.08-PM.png" alt="" /></p>
+
+<p>EN-JA is not as effective as EN-BG</p>
+
+<p>🗣<strong>How do you quantitively measure similarity between languages?</strong></p>
+
+<p>It turns out that by using <a href="https://wals.info">WALS</a> features, which is a large database of structural (phonological, grammatical, lexical) properties of languages gathered from descriptive materials (such as reference grammars) by a team of 55 authors, you determine the number of overlapping attributes between the languages you want to compare with.</p>
+
+<p><img src="/post_images/Screen-Shot-2019-07-18-at-12.17.06-PM.png" alt="" /></p>
+
+<p>number of WALS features correlates wth accuracy</p>
+
+<p>As expected, an experiment shows that the languages which share a higher number of WALS features yield better accuracy. <strong>It easier for M-BERT to map linguistic structures when they are more similar</strong>.</p>
+
+<p>M-BERT has definitely learn the generalised structure of languages and the transformation needed to accommodate from one to another. But probably <strong>not all kinds of structure</strong>. We could see that when the expected transfer of structure is bigger, such as the case of typological feature (word order), it fails to do well. But if the amount of transfer is small, such as the case of “adjective/noun” order, it can still do well.</p>
+
+<p><img src="/post_images/Screen-Shot-2019-07-18-at-1.59.24-PM.png" alt="" /></p>
+
+<p>Differences in AN/NA tests are much lower compared to SVO/SOV tests</p>
+
+<p>To sum things up, the M-BERT if the pair of languages share the same word order, it should do well. If not, you are out of luck.</p>
+
+<p>These key takeaways from the probing experiments shows promising possibilities of using M-BERT in many NLP tasks where we don’t even have any dataset to begin with and I believe by using M-BERT as an encoder to produce multilingual representation for a bigger model or fine tuning to a NLP task straightaway, you would probably have a better chance of achieving results.</p>
+
+<p>I feel that there are challenges for languages which are dissimilar in a way we mentioned and the solutions have not been fully addressed by M-BERT. But let’s leave that discussion for a future post…</p>
+
+  </div><a class="u-url" href="/machine-learning/nlp/2019/07/18/crossing-the-language-barrier-with-nlp.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">DataGeeko.com</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name"></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://www.linkedin.com/in/wei-yeng-seow-22405488"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#linkedin"></use></svg> <span class="username">wei-yeng-seow-22405488</span></a></li><li><a href="https://github.com/wyseow"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">wyseow</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>You just found DataGeeko.com! This is my personal website where I share fun experiments,  projects and insights about data science and machine learning.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

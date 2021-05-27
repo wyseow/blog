@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>Recent Advances in Abstractive Summarization Using Deep Learning Part 2 | DataGeeko.com</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Recent Advances in Abstractive Summarization Using Deep Learning Part 2" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="This post is a continuation to the previous post here." />
+<meta property="og:description" content="This post is a continuation to the previous post here." />
+<link rel="canonical" href="http://localhost:4000/deep-learning/nlp/2019/03/13/recent-advances-in-abstractive-summarization-using-deep-learning-part-2.html" />
+<meta property="og:url" content="http://localhost:4000/deep-learning/nlp/2019/03/13/recent-advances-in-abstractive-summarization-using-deep-learning-part-2.html" />
+<meta property="og:site_name" content="DataGeeko.com" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2019-03-13T00:00:00+08:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Recent Advances in Abstractive Summarization Using Deep Learning Part 2" />
+<script type="application/ld+json">
+{"description":"This post is a continuation to the previous post here.","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/deep-learning/nlp/2019/03/13/recent-advances-in-abstractive-summarization-using-deep-learning-part-2.html"},"url":"http://localhost:4000/deep-learning/nlp/2019/03/13/recent-advances-in-abstractive-summarization-using-deep-learning-part-2.html","headline":"Recent Advances in Abstractive Summarization Using Deep Learning Part 2","dateModified":"2019-03-13T00:00:00+08:00","datePublished":"2019-03-13T00:00:00+08:00","@type":"BlogPosting","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="DataGeeko.com" /></head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">DataGeeko.com</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Recent Advances in Abstractive Summarization Using Deep Learning Part 2</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2019-03-13T00:00:00+08:00" itemprop="datePublished">Mar 13, 2019
+      </time></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p>This post is a continuation to the previous post <a href="http://gator4205.temp.domains/~datageeko/recent-advances-in-abstractive-summarization-using-deep-learning/">here</a>.</p>
+
+<p>We continue to track the recent progress and trend in abstractive summarization in 2018.</p>
+
+<p>The earlier efforts in abstractive summarisation focuses on problems that are related to natural language generation rather than the summarization task itself. Some problems that were tackled:</p>
+
+<ol>
+  <li>Unfactual information (copy mechanism)</li>
+  <li>OOV words (copy mechanism)</li>
+  <li>Word and sentence level repetition (coverage mechanism)</li>
+</ol>
+
+<p>All these efforts are only sufficient to ensure that the generated summaries are <strong>fluent and natural.</strong> Most importantly they didn’t address fundamental qualities of a good text summarization such as:</p>
+
+<ol>
+  <li>Non-redundancy</li>
+  <li>Referential clarity</li>
+  <li>Focus (Saliency)</li>
+  <li>Structure and Coherence</li>
+  <li>Coverage</li>
+</ol>
+
+<p>Fortunately, we have started to see some recent works in this area and interestingly, the solutions involved incorporating ideas from the extractive summariser side of the world.</p>
+
+<h2 id="learning-to-extract-coherent-summary-via-deep-reinforcement-learning-wu-et-al-2018">“Learning to extract coherent summary via deep reinforcement learning” (Wu et al., 2018)</h2>
+
+<p>I’m playing cheat; why am I talking about extractive summarization where this post is about abstractive summarization? Just hang on with me and you will see. While the abstractive summarizers are trying very hard to surpass benchmarks, the extractive summarisers are having an easier time due to the ROUGE-2 calculation.</p>
+
+<p>In the recent years, using neural networks to perform extractive summarization is becoming attractive. Although this method1 is nothing new, most of them ignore the <strong>coherence</strong> factor when extracting sentences. And this is where the paper comes in.</p>
+
+<p>There are 2 parts in this approach. The first part (Neural Extractive Summarization Model) is a simple Bi-GRU sequence model that focuses on picking the right sentences from the document of sentences. The extractor looks similar to:</p>
+
+<p>[caption id=”attachment_415” align=”aligncenter” width=”163”]<img src="/post_images/Screen-Shot-2019-03-12-at-11.24.02-AM-163x300.png" alt="" /> Trained by supervised learning, minimizing the negative<br />
+log-likelihood of the ground truth extraction labels. Nothing fancy.[/caption]</p>
+
+<p>After the <strong>NES</strong> have been pre-trained, they <strong>further train it with reinforcement learning</strong> with the aim to extract coherent and informative summaries by maximising coherent and ROUGE score. This model is called <strong>RNES</strong>.</p>
+
+<p>We have seen the inception of RL in the recent developments of abstractive summariser, hugely because ROUGE metric is non-differentiable with respect to the model parameters and that is the perfect use case for RL.</p>
+
+<p>The coherent score measure the level of entailment between 2 sentences, and this score is used as one of the rewards in RL.</p>
+
+<p><strong>How do we compute the coherent score?</strong></p>
+
+<p>We could throw the problem to a neural network; they propose a <strong>neural coherence model</strong> which is a series of convolution and max-pooling layers performed on the sentence embeddings to capture the syntactic and semantic coherence patterns between sentences.</p>
+
+<p><img src="/post_images/Screen-Shot-2019-03-12-at-11.25.41-AM.png" alt="" /></p>
+
+<p>They then used a pair-wise training strategy which is similar to the siamese network where we  train with triples of sentences (eg. A, B, C, where A and B are similar and C is the dissimilar to A).</p>
+
+<p>[caption id=”attachment_416” align=”aligncenter” width=”300”]<img src="/post_images/Screen-Shot-2019-03-12-at-5.04.45-PM-300x46.png" alt="" /> objective is to minimise the ranking-based loss(similar to the constrative loss in siamese network)[/caption]</p>
+
+<p>Once again, the objective of using RL in this context is to find out the optimal policy (sequence of sentences) where coherence scores are exploited as immediate rewards and ROUGE as the final reward.</p>
+
+<p><strong>Qualitative results</strong></p>
+
+<p>[caption id=”attachment_418” align=”aligncenter” width=”300”]<img src="/post_images/Screen-Shot-2019-03-12-at-5.18.07-PM-300x117.png" alt="" /> Results have surpassed benchmarks[/caption]</p>
+
+<p>The authors find that although the variant without coherence perform better, the coherence objective and ROUGE score do not always agree with each other so they believe that the model with coherence reward is a better one.</p>
+
+<p><strong>Quantitative results</strong></p>
+
+<p>[caption id=”attachment_419” align=”aligncenter” width=”282”]<img src="/post_images/Screen-Shot-2019-03-12-at-5.23.50-PM-282x300.png" alt="" /> We could see sentences flowing naturally, as sentences start with “that” should not be the first.[/caption]</p>
+
+<p>Their result in ROUGE-2 is pretty good. At this time of writing, they achieve the best score on the anonymized version of the CNN/Dailymail dataset.</p>
+
+<p>Life is not fair; extractive summarizers just need to select the right sentences, but abstractive summarisers need to select the right sentences + generate new sentences fluently and correctly. And that comes to the point that recent abstractive summarizers have slowly moved to hybrid approach which combines extractive and abstractive methods.</p>
+
+<h2 id="fast-abstractive-summarization-with-reinforce-selected-sentence-rewriting-chen-et-al-2018">“Fast Abstractive Summarization with Reinforce-Selected Sentence Rewriting”, (Chen et al., 2018)</h2>
+
+<p>One of the top-5 models in ROUGE-2 score and inherited a lot of ideas from the paradigm of “extract-then-compress”, this paper2 proposed a hybrid extractive-abstractive architecture which first selects/extract salient sentences and then rewrites them abstractively to generate a concise summary.</p>
+
+<p><img src="/post_images/Screen-Shot-2019-03-12-at-5.56.15-PM-1024x527.png" alt="" /></p>
+
+<p><strong>What is a CNN doing there?</strong></p>
+
+<p>This is inspired by numerous convolutional neural network (CNN) based encoder-decoder models3,4,5 which many benefits such as shorter paths between pairs of input and output tokens, so that it can propagate gradient signals more efficiently. In another words, it could capture longer range dependency for long sentences with lesser computation time.</p>
+
+<p>A Pointer Network6 is trained to extract sentences recurrently. This model is essentially classifying all sentences of the document at each extraction step.</p>
+
+<p>Over at the abstractor side, they used a simple encoder-aligner-decoder7 with the copy mechanism8 which have seen already, to prevent OOV words problem.</p>
+
+<p>While there is nothing fancy going on in the abstractor model, the interesting part of this paper is about using RL to jointly train the extractor and abstractor models in a end-to-end manner. But before we could do that, starting from a randomly initialized network would take ages to converge. Intuitivetly, when randomly initialized, the extractor would often select sentences that are not relevant, so it would be difficult for the abstractor to learn to abstractively rewrite.</p>
+
+<p>Therefore, they pre-trained each model separately first.</p>
+
+<p><strong>How to pretrain extractor to pick up salient sentences?</strong></p>
+
+<p>While we do not have the saliency labels, we could provide a ‘proxy’ target label which can be derived by  picking the most similar sentences to ground-truth summary sentence which is similar to an earlier extractive model9. Given these proxy training labels, the extractor is then trained to minimize the cross-entropy loss. Simple as that.</p>
+
+<p><strong>How to pretrain abstractor to rewrite?</strong></p>
+
+<p>It’s simple as taking each summary sentence and pairing it with its extracted sentence. The network is trained as an usual sequence-to-sequence model to minimize the cross-entropy loss.</p>
+
+<p>Finally, both of the pretrained models are further trained end-to-end using RL. Compared to the last paper we reviewed, this paper uses only ROUGE as reward for learn the policy.</p>
+
+<p>Intuitively, the RL training works as follow: If the extractor chooses a good sentence, after the ab- stractor rewrites it the ROUGE score would be high and thus the action is encouraged. If a bad sentence is chosen, though the abstractor still produces a compressed version of it, the summary would not match the ground truth and the low ROUGE score discourages this action.</p>
+
+<p><strong>Qualitative results</strong></p>
+
+<p>[caption id=”attachment_427” align=”aligncenter” width=”678”]<img src="/post_images/Screen-Shot-2019-03-13-at-10.45.45-AM-1024x393.png" alt="" /> At this time of writing, it achieved top 5 for ROUGE-2[/caption]</p>
+
+<p>[caption id=”attachment_428” align=”aligncenter” width=”500”]<img src="/post_images/Screen-Shot-2019-03-13-at-10.53.39-AM.png" alt="" /> Gives a significant speed-up[/caption]</p>
+
+<p>The reason why it’s much faster is because they could first compute all the extracted sentences for the document, and then abstract every sentence concurrently (in parallel) to generate the overall summary. Since the computation bottleneck is on the abstractor, which has to generate summaries with a large vocabulary from scratch, putting this process to parallel yields the most time saving.</p>
+
+<p><strong>Quantitative results</strong></p>
+
+<p><img src="/post_images/Screen-Shot-2019-03-13-at-11.21.59-AM-937x1024.png" alt="" /></p>
+
+<h2 id="trends-and-further-direction">Trends and further direction</h2>
+
+<p>We could see that there’s a shift of abstractive summarizers towards a 2-stage “extract-then-abstract” process in several recent papers10,11 besides the ones we reviewed. Many feel that a single abstractor unit is not powerful enough to perform both tasks of identifying the salient information and rewriting it abstractively. Therefore, recent efforts involve decoupling these 2 tasks in various ways, and the task of extracting salient information has slowly converge into the realm of neural extractive summarizers and that is why we could see some ideas from the neural extractive summarisers side of world coming into the abstractive side.</p>
+
+<p>While some may feel like it’s a step backwards (going back to extractive methods), there are numerous benefits to it:</p>
+
+<ol>
+  <li>By framing it as separate extractor and abstractive modules, we can test the performance of each task more easily, and we could apply improvements more directly.</li>
+  <li>We could enjoy the works done at the extractive summarisers and apply it together with the abstractor module.</li>
+</ol>
+
+<p>RL will continue to reign future work as the community attempts to tackle fundamental summarization criteria. There will be measurements that track these criteria, like the coherence score we saw earlier and due to the fact that they are not differentiateable, RL will be used to learn a policy that best produce the summaries we expect.</p>
+
+<p> </p>
+
+<p>References 1 “Learning to extract coherent summary via deep reinforcement learning” (Wu et al., 2018) 2 “Fast Abstractive Summarization with Reinforce-Selected Sentence Rewriting” (Chen et al., 2018) 3 “Neural machine translation in linear time” (Kalchbrenner et al., 2016) 4 “Quasi-recurrent neural networks” (Bradbury et al., 2016) 5 “Convolutional sequence to sequence learning” (Gehring et al., 2017) 6 “Pointer networks” (Vinyals et al., 2015) 7 “Neural machine translation by jointly learning to align and translate” (Bahdanau et al., 2015) 8 “Get to the point: Summarization with pointer-generator networks” (See et al., 2017) 9 “Summarunner: A recurrent neural network based sequence model for extractive summarization of documents.” (Nallapati et al.,2017) 10 “Improving Abstraction in Text Summarization” (Salesforce Research, 2018) 11 “Improving Neural Abstractive Document Summarization with Explicit Information Selection Modeling” (Li et al., 2018a)</p>
+
+  </div><a class="u-url" href="/deep-learning/nlp/2019/03/13/recent-advances-in-abstractive-summarization-using-deep-learning-part-2.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">DataGeeko.com</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name"></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://www.linkedin.com/in/wei-yeng-seow-22405488"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#linkedin"></use></svg> <span class="username">wei-yeng-seow-22405488</span></a></li><li><a href="https://github.com/wyseow"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">wyseow</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>You just found DataGeeko.com! This is my personal website where I share fun experiments,  projects and insights about data science and machine learning.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
