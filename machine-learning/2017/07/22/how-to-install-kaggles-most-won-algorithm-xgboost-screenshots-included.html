@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>How to install Kaggle’s Most Won Algorithm - XGBoost (Screenshots included) | DataGeeko.com</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="How to install Kaggle’s Most Won Algorithm - XGBoost (Screenshots included)" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="If you are on this page, chances are you have heard of the incredible capability of XGBoost. Not only it “boasts” higher accuracy compared to similar boasted tree algorithms like GBM (Gradient Descent Machine), thanks to a more regularized model formalization to control over-fitting, it enables many Kaggle Masters to win Kaggle competitions as well. In fact, it’s probably the most popular machine learning algorithm at the data science space right now!" />
+<meta property="og:description" content="If you are on this page, chances are you have heard of the incredible capability of XGBoost. Not only it “boasts” higher accuracy compared to similar boasted tree algorithms like GBM (Gradient Descent Machine), thanks to a more regularized model formalization to control over-fitting, it enables many Kaggle Masters to win Kaggle competitions as well. In fact, it’s probably the most popular machine learning algorithm at the data science space right now!" />
+<link rel="canonical" href="http://localhost:4000/machine-learning/2017/07/22/how-to-install-kaggles-most-won-algorithm-xgboost-screenshots-included.html" />
+<meta property="og:url" content="http://localhost:4000/machine-learning/2017/07/22/how-to-install-kaggles-most-won-algorithm-xgboost-screenshots-included.html" />
+<meta property="og:site_name" content="DataGeeko.com" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2017-07-22T00:00:00+08:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="How to install Kaggle’s Most Won Algorithm - XGBoost (Screenshots included)" />
+<script type="application/ld+json">
+{"description":"If you are on this page, chances are you have heard of the incredible capability of XGBoost. Not only it “boasts” higher accuracy compared to similar boasted tree algorithms like GBM (Gradient Descent Machine), thanks to a more regularized model formalization to control over-fitting, it enables many Kaggle Masters to win Kaggle competitions as well. In fact, it’s probably the most popular machine learning algorithm at the data science space right now!","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/machine-learning/2017/07/22/how-to-install-kaggles-most-won-algorithm-xgboost-screenshots-included.html"},"url":"http://localhost:4000/machine-learning/2017/07/22/how-to-install-kaggles-most-won-algorithm-xgboost-screenshots-included.html","headline":"How to install Kaggle’s Most Won Algorithm - XGBoost (Screenshots included)","dateModified":"2017-07-22T00:00:00+08:00","datePublished":"2017-07-22T00:00:00+08:00","@type":"BlogPosting","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="DataGeeko.com" /></head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">DataGeeko.com</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">How to install Kaggle&#39;s Most Won Algorithm - XGBoost (Screenshots included)</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2017-07-22T00:00:00+08:00" itemprop="datePublished">Jul 22, 2017
+      </time></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p>If you are on this page, chances are you have heard of the incredible capability of XGBoost. Not only it “boasts” higher accuracy compared to similar boasted tree algorithms like GBM (Gradient Descent Machine), thanks to a more regularized model formalization to control over-fitting, it enables many Kaggle Masters to win Kaggle competitions as well. In fact, it’s probably the most popular machine learning algorithm at the data science space right now!</p>
+
+<p>Today we shall see how you can install the XGBoost library in your workspace to start using it for your data science project or even Kaggle competition!</p>
+
+<p>You might be thinking that we can’t we just download from the Anaconda repo list by doing a one-liner like this as suggested by many websites:</p>
+
+<p>[php] conda install -c anaconda py-xgboost=0.60 [/php]</p>
+
+<p>Moreover, it seems to work in all platforms! Be it windows(32 or 64 bits), linux, OSX and you don’t need to deal with the frustrating libraries dependencies during installation.</p>
+
+<p>But wait! It works perfectly until you are in the thick of the action. Depending on your dataset or structure of sparse matrix, you might hit all sorts of error messages like “feature name mismatches”, blah blah, and this is a good example that I have hit on for several days:</p>
+
+<p>[php] ValueError: feature_names mismatch: [‘f0’, ‘f1’, ‘f2’, ‘f3’, ‘f4’, ‘f5’, ‘f6’, ‘f7’, ‘f8’, ‘f9’, ‘f10’, ‘f11’, ‘f12’, … f38732’, ‘f38733’, ‘f38734’, ‘f38735’, ‘f38736’, ‘f38737’, ‘f38738’, ‘f38739’] [] expected f4057, f36350, f1683, f1914, f33121, f16637, f21443, f10995, f36221, f24340, f15968, f7863, f38732, … f19897, f33500, f37792, f30259, f20094, f27943, f5788, f14369, f9074 in input data [/php]</p>
+
+<p>If you look at the issue tracker at GitHub, I’m not the only one: https://github.com/dmlc/xgboost/issues/1238</p>
+
+<p>That’s the best reason why we are building the latest XGBoost library on scratch. The latest version fixes all the nasty bugs till date and although you have to put in a few good hours to build the library, it’s better than stumbling on a bug and backtracking all the way back.</p>
+
+<p>So make yourself a good cup of coffee, put on your geeky glasses and do these step by step…</p>
+
+<p><strong>Installing on OSX</strong></p>
+
+<p>1) Get Homebrew</p>
+
+<p>This is a very useful open source installer that contains all the nifty tool you need to install libraries, which you will need it later to build the XGBoost files. Fortunately, Installing is straightforward.</p>
+
+<p>Simply open a terminal, then paste and execute the instruction available on Homebrew home page, such as:</p>
+
+<p>[php] /usr/bin/ruby -e “$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)” [/php]</p>
+
+<p>You should see the following: <img src="/post_images/Screen-Shot-2017-07-15-at-11.02.11-AM-1-1024x718.png" alt="" /></p>
+
+<p>2) Get GCC Compiler with Multi threading enabled. <strong>This is important</strong> as you will want XGBoost to take advantage of your quad/whatever core in your CPU and run your fitting/prediction as soon as possible. The following commond will download, and build GCC. Be warned that it’s going to take a long time so grab a coffee while you are waiting.</p>
+
+<p>[php] brew install gcc –without-multilib [/php]</p>
+
+<p>If you see the following screens while waiting, chances are you are on track! <img src="/post_images/Screen-Shot-2017-07-15-at-11.02.48-AM-1024x718.png" alt="" /></p>
+
+<p><img src="/post_images/Screen-Shot-2017-07-15-at-12.28.38-PM-1024x718.png" alt="" /> 3) Finally, Get XGBOOST! Go to the directory you want it to be downloaded (cd command), then type the git clone command and execute it. This would download the latest build from the official XGBoost GitHub repo:</p>
+
+<p>[php] cd <directory> git clone --recursive https://github.com/dmlc/xgboost \[/php\]</directory></p>
+
+<p>Note: It creates a directory named xgboost inside your directory. <img src="/post_images/Screen-Shot-2017-07-16-at-12.04.07-AM-1024x718.png" alt="" /></p>
+
+<p>4) Find out your GCC compiler version as we will be putting the version number into the XGBoost config file:</p>
+
+<p>[php]which gcc-7[/php]</p>
+
+<p>OR try which version is it being installed by testing with different version number <img src="/post_images/Screen-Shot-2017-07-16-at-12.28.17-AM-1024x494.png" alt="" /> In my case, I have version 7 (gcc-7). Now that you know your GCC compiler version. Let’s put the version number in your config file.</p>
+
+<p>5) Open make/config.mk</p>
+
+<p>[php] vi make/config.mk [/php]</p>
+
+<p>6) And uncomment these two lines.</p>
+
+<p>[php] export CC = gcc export CXX = g++ [/php]</p>
+
+<p>7) Swap in your GCC Compiler version number:</p>
+
+<p>[php] export CC = gcc-7 export CXX = g++-7 [/php]</p>
+
+<p>It should look like this: <img src="/post_images/Screen-Shot-2017-07-16-at-2.07.35-PM-1024x718.png" alt="" /> 8)Copy the config file to your main xgboost directory for building:</p>
+
+<p>[php] cd <directory>/xgboost cp make/config.mk . \[/php\]</directory></p>
+
+<p>9) Finally, it’s time to build our directory:</p>
+
+<p>[php]make -j4[/php]</p>
+
+<p>You should see something like this: <img src="/post_images/Screen-Shot-2017-07-16-at-12.26.42-AM-1024x718.png" alt="" /> <img src="/post_images/Screen-Shot-2017-07-16-at-12.28.25-AM-1024x718.png" alt="" /> 10) Now that the build is done, we can use install the XGBoost onto your Python package:</p>
+
+<p>[php] cd python-package; sudo python setup.py install [/php]</p>
+
+<p><img src="/post_images/Screen-Shot-2017-07-16-at-12.29.12-AM-1024x718.png" alt="" /> <strong>If you see the above message, you are done! Congratulations! You are on your way to an award winning machine learning algorithm!</strong></p>
+
+<p>Now, go ahead and head to your Jupyter Notebook and do a:</p>
+
+<p>[php] import xgboost as xib [/php]</p>
+
+<p>And you shouldn’t see any error. That means the installation is successful!</p>
+
+<p> </p>
+
+<p><strong>Installing on Windows</strong></p>
+
+<p>For windows, we need more work to get build the XGBoost. I think I probably spent like 1-1.5 hours to get it done, so grab a coffee or two if you need to.</p>
+
+<p>1) Download and install Visual Studio Community version which is free! For my case, you can find the installation <a href="https://www.visualstudio.com/downloads/">here</a>. Ensure that you have chosen all the C++ build tools during your installation. In this example I have installed Visual Studio 2017.</p>
+
+<p>2) Download and install CMake <a href="https://cmake.org/download/">here</a>. Unzip/extract to a directory to your choice and ensure there’s a <strong>cmake.exe</strong> being extracted.</p>
+
+<p>3) Download Git for Windows <a href="https://git-for-windows.github.io/">here</a> and run the installation. Simply run through the installation with default settings(except for the option shown below-select the bash option) and you will do fine. <img src="/post_images/Untitled0.png" alt="" /> Once the installation is done, look for a program called <strong>Git Bash</strong> in your start menu or program files.</p>
+
+<p>4) Create a directory where you want to download the XGboost source code to.</p>
+
+<p>Okay! Finally we are done with all the installation and can start with the actual building of the codes!</p>
+
+<p>4) Launch the <strong>Git Bash</strong> and “go” to the directory(you just created above) where you want to download XGBoost source code by typing the cd command in the bash terminal like the following:</p>
+
+<p>[php] cd c:/Users/vargeeks/code/ [/php]</p>
+
+<p>5) Download the XGBoost source code by typing the following commands one by one:</p>
+
+<p>[php] git clone –recursive https://github.com/dmlc/xgboost cd xgboost git submodule init git submodule update [/php]</p>
+
+<p>Now that the codes are in, our next step is to build it to generate a dll and exe file.</p>
+
+<p>6) Launch your <strong>Developer Command Prompt</strong> in your Visual Studio folder: <img src="/post_images/Untitled2.png" alt="" /></p>
+
+<p>7) Using the <strong>dev command prompt</strong>, create build folder and “go” into it by typing:</p>
+
+<p>[php] mkdir build cd build [/php]</p>
+
+<p>8) Use the <strong>cmake.exe</strong> that you have extracted to build the codes:</p>
+
+<p>[php] C:\dev\cmake-3.6.2-win64-x64\bin\cmake.exe .. -G”Visual Studio 15 2017 Win64″ [/php]</p>
+
+<p>Note: Replace the cmake.exe path to your one and the replace the Visual Studio version with the one you have installed <img src="/post_images/Untitled3.png" alt="" /> 9) And then:</p>
+
+<p>[php] msbuild.exe /t:Clean,Rebuild /p:Configuration=Release xgboost.sln [/php]</p>
+
+<p><img src="/post_images/Untitled4.png" alt="" /> 10) Okay, at this point of time a xgboost.dll and xgboost.exe will be built in different folders(from my experience). Find them and put them into the “python-package” folder like this: <img src="/post_images/Untitled5.png" alt="" /> 11) In your <strong>Developer Command Prompt</strong>, “go” to your “python-package” folder:</p>
+
+<p>[php] cd ..\python-package [/php]</p>
+
+<p>12) Finally, install the xgboost package that you have built:</p>
+
+<p>[php] python setup.py install [/php]</p>
+
+<p>Go ahead and give it a try at your Jupyter Notebook. You should be able to import like this:</p>
+
+<p>[php] import xgboost as xgb xr = xgb.XGBRegressor() [/php]</p>
+
+<p>If you didn’t see any errors, congrats! You did it!</p>
+
+<p>The above guide is based on the convergence of several guides and my own successful experience. Let me know below if there’s any error when you install using the guide.</p>
+
+<p>Have fun with XGBoost and have a go at the Kaggle competition using your new-found weapon! We’ll see how you can push the limit of XGBoost by evaluating the number of iterations during model training and tuning the best hyper-parameters in the next blog post. Stay tuned.</p>
+
+  </div><a class="u-url" href="/machine-learning/2017/07/22/how-to-install-kaggles-most-won-algorithm-xgboost-screenshots-included.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">DataGeeko.com</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name"></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://www.linkedin.com/in/wei-yeng-seow-22405488"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#linkedin"></use></svg> <span class="username">wei-yeng-seow-22405488</span></a></li><li><a href="https://github.com/wyseow"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">wyseow</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>You just found DataGeeko.com! This is my personal website where I share fun experiments,  projects and insights about data science and machine learning.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>Backprop, Autograd and Squeezing in larger batch using PyTorch | DataGeeko.com</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Backprop, Autograd and Squeezing in larger batch using PyTorch" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Backprogation is a beautiful play of derivatives which we have taken for granted. We often do a simple one-liner:" />
+<meta property="og:description" content="Backprogation is a beautiful play of derivatives which we have taken for granted. We often do a simple one-liner:" />
+<link rel="canonical" href="http://localhost:4000/deep-learning/machine-learning/2019/08/15/backprop-autograd-and-squeezing-in-larger-batch-using-pytorch.html" />
+<meta property="og:url" content="http://localhost:4000/deep-learning/machine-learning/2019/08/15/backprop-autograd-and-squeezing-in-larger-batch-using-pytorch.html" />
+<meta property="og:site_name" content="DataGeeko.com" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2019-08-15T00:00:00+08:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Backprop, Autograd and Squeezing in larger batch using PyTorch" />
+<script type="application/ld+json">
+{"description":"Backprogation is a beautiful play of derivatives which we have taken for granted. We often do a simple one-liner:","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/deep-learning/machine-learning/2019/08/15/backprop-autograd-and-squeezing-in-larger-batch-using-pytorch.html"},"url":"http://localhost:4000/deep-learning/machine-learning/2019/08/15/backprop-autograd-and-squeezing-in-larger-batch-using-pytorch.html","headline":"Backprop, Autograd and Squeezing in larger batch using PyTorch","dateModified":"2019-08-15T00:00:00+08:00","datePublished":"2019-08-15T00:00:00+08:00","@type":"BlogPosting","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="DataGeeko.com" /></head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">DataGeeko.com</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Backprop, Autograd and Squeezing in larger batch using PyTorch</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2019-08-15T00:00:00+08:00" itemprop="datePublished">Aug 15, 2019
+      </time></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p>Backprogation is a beautiful play of derivatives which we have taken for granted. We often do a simple one-liner:</p>
+
+<p>loss.backward()</p>
+
+<p>to leverage the power of automatic differentiation in many deep learning framework without much thought. Today let’s look at a developed view of backpropagation as backward flow in real-valued circuits.</p>
+
+<h3 id="motivation">Motivation</h3>
+
+<p>Given some function $f(x)$ ,we are primarily interested in deriving the gradients of $f$ with respect to $x$ (in other words ∇$f(x)$). Intutitivly, this means that we are trying to find out how much $f$ will change when a tiny bit of $x$ is changed and finding out this change is important because we will know how much difference to update the parameters with, when we want to steer the function($f$) into a particular direction(minimize or even maximize).</p>
+
+<p>This could be expressed in:</p>
+
+<p>$\frac{df(x)}{dx} = \lim_{h\ \to 0} \frac{f(x + h) - f(x)}{h}$</p>
+
+<p>where the rate of change of a function ($f(x)$) with respect to that variable($x$) surrounding an infinitesimally small region near a particular point.</p>
+
+<p>In practice, the input $x$ are fixed and we are mostly concerned with adjusting the neural network weights and bias parameters ($W, b$)</p>
+
+<h3 id="a-mini-network-on-paper">A mini-network on paper</h3>
+
+<p>Let’s try to build a mini neural network on paper and differentiate it by hand. This network takes the expression $f(x,y,z) = (x+y)z$ and we could break the expression down into 2 composed functions: $q=x+y$ and $f=qz$</p>
+
+<p><img src="/post_images/mininet1.png" alt="" /></p>
+
+<p>We are interested in finding out the gradient of $f$ with respect to the inputs $x,y,z$. We could use chain rule to get the derivatives of them.</p>
+
+<p>$\frac{\partial f}{\partial x} = \frac{\partial f}{\partial q}\frac{\partial q}{\partial x}$</p>
+
+<p>which is actually just a mutiplication of 2 numbers that hold the gradient once we computed them.</p>
+
+<p>First, we perform the <strong>forward pass</strong>, which is simply the computation from inputs to outputs (depicted in green). The green values at $x,y,z$ could be seen as input values into the network.</p>
+
+<p>Secondly, we perform the <strong>backward pass</strong> that performs the backpropogation which starts at the end and recursively applies the chain rule to compute the gradients (shown in red) all the way to the inputs of the circuit. The gradients can be thought of as flowing backwards through the circuit.</p>
+
+<p>Let’s hand calculate them:</p>
+
+<p>$\frac{\partial f}{\partial f} = 1$ (derivative of itself)</p>
+
+<p>$\frac{\partial f}{\partial q} = \frac{\partial}{\partial q}(q*z) = z =-4$</p>
+
+<p>$\frac{\partial f}{\partial z} = \frac{\partial}{\partial z}(q*z) = q =3$</p>
+
+<p>$\frac{\partial f}{\partial x} = \frac{\partial f}{\partial q} \frac{\partial q}{\partial x} = -4 * \frac{\partial}{\partial x}(x+y) = -4*(1+0) =-4 $</p>
+
+<p>$\frac{\partial f}{\partial y} = \frac{\partial f}{\partial q} \frac{\partial q}{\partial y} = -4 * \frac{\partial}{\partial y}(x+y) = -4*(1+0) =-4 $</p>
+
+<p>All the above values are in red.</p>
+
+<h3 id="effects-of-interactions-between-gates">Effects of interactions between gates</h3>
+
+<p>We could see that the <strong>addition gates</strong> always takes the gradient and distributes it equally to all of its inputs, regardless of what their values were during the forward pass. This follows from the fact that the local gradient for the add operation is simply +1.0, so the gradients on all inputs will exactly equal the gradients on the output because it will be multiplied by x1.0 (and remain unchanged).</p>
+
+<p>On the other hand, the <strong>multiply gate</strong> takes the input values, swaps them and multiplies by its local gradient.</p>
+
+<p>Imagine that one of the inputs to the multiply gate is very small(0.1-1) and the other is very big (100-512) then it will assign a relatively huge gradient to the small input and a tiny gradient to the large input. In other words, the scale of the data has an effect on the magnitude of the gradient for the weights. For example, if you multiplied all input data examples $x_{i}$ by 1000 during preprocessing, then the gradient on the weights will be 1000 times larger, and you’d have to lower the learning rate by that factor to compensate. This is why <strong>preprocessing matters a lot</strong>, sometimes in subtle ways. And having a good understanding for how the gradients flow through the network can help us debug some of these cases.</p>
+
+<h3 id="local-gradients">Local gradients</h3>
+
+<p>The beauty of back-propgation is not going through the mechanical process of retriving the derivatives of $x,y,z$. Instead, we could look at it as series of gates where you could compute the local gradient of it’s inputs with respect of output value at the gate completely indepdently. During the backpropogation, we could just multiply the gradient from upstream into the local gradient.</p>
+
+<p><img src="/post_images/mininet2.png" alt="" /></p>
+
+<p>In this example, the local gradients are in blue. From the addition gate($q$), we could already know the local gradient(+1) without knowing all other inputs and values upstream. Therefore, during the backward pass, we simply have to multiply it the upstream gradient (-4 * 1) =-4. Hence the whole backprogation could be simplify as a process of multiplying the upstream gradient with the local gradient calculation of each gate. A nice way to think about it is: Force X Local Gradient</p>
+
+<h3 id="autograd-in-pytorch">Autograd in PyTorch</h3>
+
+<p>Let’s explore the concept in the PyTorch framework where it uses the same mechanism for back-prop. These Pytorch tensors(x,y) could be seen as the (x,y) in the previous example except that we do a multiplication instead of addition. We create 2 tensors with the following attributes and put them through a multiplication gate(operation in Pytorch terms) to produce another tensor. By the way, PyTorch builds the computation graph as you define the interaction between the tensors and in the forward pass.</p>
+
+<p><img src="/post_images/autograd1.png" alt="" /></p>
+
+<p>Most of the attributes in the tensor are self explantory and we want to focus on the “<strong>grad_fn</strong>” attribute, which points to the backward function, which is the calculation needed to compute the <strong>local gradients</strong>. Each operation in Pytorch has a “backward version”. In this case, it’s “MulBackward”. When we do a backward pass(tensor.backward()), the upstream gradient is pass from the end of the graph and follow the path to invoke the associated “grad_fn” to compute the local gradient. This local gradient is multiplied with the upstream gradient and in turn stored in the tensor’s “<strong>.grad</strong>” attribute, and the cycle continues until the start of the graph. At the end, Pytorch clears the computation graph.</p>
+
+<p><img src="/post_images/autograd2.png" alt="" /></p>
+
+<p>Note that not every tensor is “eligible” for the gradient because only tensors which are leaves and explicitly initialized will receive the gradients.</p>
+
+<h3 id="gradient-accumulation">Gradient accumulation</h3>
+
+<p>PyTorch allows us to take finer control of the whole backpropagation process and we do fancy things with it. Since each “tensor.backward()” calculates the gradients for every parameters and store(add) in each of their “.grad” attribute, we could make several backward pass and let the gradients in “.grad” accumulate before calling optimizer.step() to perform a step of gradient descent. This is the usual practice when training a neural network in PyTorch:</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="c1">#We feed in 1 batch of 100 samples, here we compute gradients for 100 samples and update the parameters with them
+</span><span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="n">labels</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">batches</span><span class="p">):</span>
+    <span class="c1">#inputs: 100x512x512
+</span>    <span class="n">predictions</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>                     <span class="c1"># Forward pass (builds a graph)
+</span>    <span class="n">loss</span> <span class="o">=</span> <span class="n">loss</span>\<span class="n">_function</span><span class="p">(</span><span class="n">predictions</span><span class="p">,</span> <span class="n">labels</span><span class="p">)</span>       <span class="c1"># Compute loss function
+</span>    <span class="n">loss</span><span class="p">.</span><span class="n">backward</span><span class="p">()</span>                                 <span class="c1"># Backward pass(compute grad and parameter's .grad updated)
+</span>    <span class="n">optimizer</span><span class="p">.</span><span class="n">step</span><span class="p">()</span>                                <span class="c1"># Now we can do an optimizer step (update the parameters with gradients)
+</span>    <span class="n">model</span><span class="p">.</span><span class="n">zero</span>\<span class="n">_grad</span><span class="p">()</span>                               <span class="c1"># Reset gradients tensors (all .grad becomes 0, doesn't reset unless we call it)</span></code></pre></figure>
+
+<p>And you might ask what’s the use of accumulating gradients?</p>
+
+<p>Consider a case where a batch of samples(batch size of 100) are simply too big to fit into the memory and after some trial-and-error, the most that you could fit in your GPU is probably batch size of 20. This is how we could train with the same 100 samples by accumulating gradients for 5 steps of 20 samples.</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="c1">#5 batches of 20 samples, here we compute gradients for 20 samples but don't update the parameters with them
+#we accumulate the gradients in .grad until we have accumlate 5 
+</span><span class="n">accumulation</span>\<span class="n">_steps</span> <span class="o">=</span> <span class="mi">5</span>                              <span class="c1">#we accumlate for 5 steps(20x5=100)
+</span><span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="n">labels</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">batches</span><span class="p">):</span>
+    <span class="c1">#inputs: 20x512x512
+</span>    <span class="n">predictions</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>                     <span class="c1"># Forward pass (builds a graph)
+</span>    <span class="n">loss</span> <span class="o">=</span> <span class="n">loss</span>\<span class="n">_function</span><span class="p">(</span><span class="n">predictions</span><span class="p">,</span> <span class="n">labels</span><span class="p">)</span>       <span class="c1"># Compute loss function
+</span>    <span class="n">loss</span> <span class="o">=</span> <span class="n">loss</span> <span class="o">/</span> <span class="n">accumulation</span>\<span class="n">_steps</span>                <span class="c1"># Normalize our loss (if averaged)
+</span>    <span class="n">loss</span><span class="p">.</span><span class="n">backward</span><span class="p">()</span>                                 <span class="c1"># Backward pass(compute grad and parameter's .grad updated)
+</span>    <span class="k">if</span> <span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="n">accumulation</span>\<span class="n">_steps</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>             <span class="c1"># Wait for several backward steps
+</span>        <span class="n">optimizer</span><span class="p">.</span><span class="n">step</span><span class="p">()</span>                            <span class="c1"># Now we can do an optimizer step (update the parameters with gradients)
+</span>        <span class="n">model</span><span class="p">.</span><span class="n">zero</span>\<span class="n">_grad</span><span class="p">()</span>                           <span class="c1"># Reset gradients tensors</span></code></pre></figure>
+
+<p>Note that this is different from just training a smaller batch size because this would be computing loss and gradients based on 20 samples, not 100 samples.</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="c1">#We feed in 5 batch of 20 samples, here we compute gradients for 20 samples and update the parameters with them
+</span><span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="n">labels</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">batches</span><span class="p">):</span>
+    <span class="c1">#inputs: 20x512x512
+</span>    <span class="n">predictions</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>                     <span class="c1"># Forward pass (builds a graph)
+</span>    <span class="n">loss</span> <span class="o">=</span> <span class="n">loss</span>\<span class="n">_function</span><span class="p">(</span><span class="n">predictions</span><span class="p">,</span> <span class="n">labels</span><span class="p">)</span>       <span class="c1"># Compute loss function
+</span>    <span class="n">loss</span><span class="p">.</span><span class="n">backward</span><span class="p">()</span>                                 <span class="c1"># Backward pass(parameter's .grad updated)
+</span>    <span class="n">optimizer</span><span class="p">.</span><span class="n">step</span><span class="p">()</span>                                <span class="c1"># Now we can do an optimizer step (update the parameters with gradients)
+</span>    <span class="n">model</span><span class="p">.</span><span class="n">zero</span>\<span class="n">_grad</span><span class="p">()</span>                               <span class="c1"># Reset gradients tensors (all .grad becomes 0, doesn't reset unless we call it)</span></code></pre></figure>
+
+<h3 id="gradient-checkpointing">Gradient checkpointing</h3>
+
+<p>What happens if you can’t even pass 1 sample through the network?</p>
+
+<p>Checkpointing works by trading compute for memory. Rather than storing all intermediate activations of the entire computation graph for computing backward, the checkpointed part does not save intermediate activations, and instead recomputes them in backward pass. It can be applied on any part of a model.</p>
+
+<p>Specifically, in the forward pass, function will run in torch.no_grad() manner, i.e., not storing the intermediate activations. Instead, the forward pass saves the inputs tuple and the function parameter. In the backwards pass, the saved inputs and function is retreived, and the forward pass is computed on function again, now tracking the intermediate activations, and then the gradients are calculated using these activation values.</p>
+
+<p><img src="/post_images/grad_ckpt1.gif" alt="" /></p>
+
+<p>As the forward pass progresses, the nodes in the computational graph store the intermediary values required for backpropagation. You could imagine that the more layers the network has, the higher amount of memory it will use.</p>
+
+<p><img src="/post_images/grad_ckpt2.gif" alt="" /></p>
+
+<p>Instead of saving all of them, we could save memory by forgetting nodes as they are consumed and recomputing them later. But this could leads to high number of computational steps.</p>
+
+<p><img src="/post_images/grad_ckpt3-300x87.png" alt="" /></p>
+
+<p>A middle ground give rise to <strong>gradient checkpointing</strong>, which is to select some key nodes as “checkpoints” to save the intermediate results so nodes don’t need to recompute all the way back for the values.</p>
+
+<p><img src="/post_images/grad_ckpt4.gif" alt="" /></p>
+
+<p>For a chain of length n, generalization of this strategy is to place checkpoints every sqrt(n) steps.</p>
+
+<p>I have not personally experimented with gradient checkpointing but it looks promising and pluasible because Pytorch’s native library support this function directly.</p>
+
+<p>Some sample implementation codes can be seen here:<br />
+<a href="https://github.com/prigoyal/pytorch_memonger/blob/master/tutorial/Checkpointing_for_PyTorch_models.ipynb">https://github.com/prigoyal/pytorch_memonger/blob/master/tutorial/Checkpointing_for_PyTorch_models.ipynb</a></p>
+
+<p>In conclusion, I have roughly went through backpropogation in neural networks and relating the mechanisms of the process to the corresponding functions in PyTorch. I hope you have learn something and thanks for reading.</p>
+
+<p>References:<br />
+1) https://medium.com/huggingface/training-larger-batches-practical-tips-on-1-gpu-multi-gpu-distributed-setups-ec88c3e51255<br />
+2) https://medium.com/tensorflow/fitting-larger-networks-into-memory-583e3c758ff9<br />
+3) https://pytorch.org/docs/stable/checkpoint.html<br />
+4)https://github.com/prigoyal/pytorch_memonger/blob/master/tutorial/Checkpointing_for_PyTorch_models.ipynb<br />
+5) https://medium.com/@14prakash/back-propagation-is-very-simple-who-made-it-complicated-97b794c97e5c<br />
+6) http://karpathy.github.io/neuralnets/</p>
+
+  </div><a class="u-url" href="/deep-learning/machine-learning/2019/08/15/backprop-autograd-and-squeezing-in-larger-batch-using-pytorch.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">DataGeeko.com</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name"></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://www.linkedin.com/in/wei-yeng-seow-22405488"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#linkedin"></use></svg> <span class="username">wei-yeng-seow-22405488</span></a></li><li><a href="https://github.com/wyseow"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">wyseow</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>You just found DataGeeko.com! This is my personal website where I share fun experiments,  projects and insights about data science and machine learning.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

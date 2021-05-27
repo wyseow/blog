@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>Practical Data Problems - How to read big data files efficiently | DataGeeko.com</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Practical Data Problems - How to read big data files efficiently" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Panda’s read_table or read_csv is probably the number 1 method that comes to everyone’s mind when you need to read the rows of data into dataframe. After all, you could do that in just 2 lines:" />
+<meta property="og:description" content="Panda’s read_table or read_csv is probably the number 1 method that comes to everyone’s mind when you need to read the rows of data into dataframe. After all, you could do that in just 2 lines:" />
+<link rel="canonical" href="http://localhost:4000/data-preprocessing/2017/06/25/practical-data-problems-how-to-read-big-data-files-efficiently.html" />
+<meta property="og:url" content="http://localhost:4000/data-preprocessing/2017/06/25/practical-data-problems-how-to-read-big-data-files-efficiently.html" />
+<meta property="og:site_name" content="DataGeeko.com" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2017-06-25T00:00:00+08:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Practical Data Problems - How to read big data files efficiently" />
+<script type="application/ld+json">
+{"description":"Panda’s read_table or read_csv is probably the number 1 method that comes to everyone’s mind when you need to read the rows of data into dataframe. After all, you could do that in just 2 lines:","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/data-preprocessing/2017/06/25/practical-data-problems-how-to-read-big-data-files-efficiently.html"},"url":"http://localhost:4000/data-preprocessing/2017/06/25/practical-data-problems-how-to-read-big-data-files-efficiently.html","headline":"Practical Data Problems - How to read big data files efficiently","dateModified":"2017-06-25T00:00:00+08:00","datePublished":"2017-06-25T00:00:00+08:00","@type":"BlogPosting","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="DataGeeko.com" /></head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">DataGeeko.com</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Practical Data Problems - How to read big data files efficiently</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2017-06-25T00:00:00+08:00" itemprop="datePublished">Jun 25, 2017
+      </time></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p>Panda’s read_table or read_csv is probably the number 1 method that comes to everyone’s mind when you need to read the rows of data into dataframe. After all, you could do that in just 2 lines:</p>
+
+<p>[python] import pandas as pd data = pd.read_table(‘filename.txt’) [/python]</p>
+
+<p>Neat huh? These 2 simple lines would go work well with many cases.</p>
+
+<p>But, guess what happens if you attempt to read a file that has at least millions of rows, and over GBs in file size, which is pretty common in production data. This is what you will see:</p>
+
+<p>[caption id=”attachment_88” align=”alignnone” width=”512”]<img src="/post_images/ucl3.png" alt="" /> Uh oh..it’s the nasty out of memory error again…[/caption]</p>
+
+<p>Depending on the hardware spec of the machine you are running it on, you would see this message at some point of loading the data. It took about 30+ seconds for me on a Macbook pro running on intel core i5 with 4GB ram.</p>
+
+<p>Hitting this message in the output is a rude awakening that it’s time we have to do play a few tricks to load our big data file efficiently. So how do we go about doing it?</p>
+
+<p><strong>Reading just part of the data - Attempt #1</strong></p>
+
+<p>Perhaps you don’t need the full 5451020 lines in your dataframe? If you just doing some analysis and want to get a feel of the data, you could limit the function to just read X rows using the “nrows” parameter. In this example, we are reading just 200 rows:</p>
+
+<p>[python] import pandas as pd data = pd.read_table(‘filename.txt’,nrows=200) data.shape #Prints (200, 17) [/python]</p>
+
+<p>There you go, 200 samples of the big data file that crashes your machine. However, this method will only fetches the first X rows and it introduces other problems. The first X rows might not be representative of the whole dataset in terms of distributions, mean and other important statistical matrix.</p>
+
+<p><strong>Reading just part of the data - Attempt #2</strong></p>
+
+<p>We could also take in big data file chunk by chunk, in a memory-friendly size, and combine it together into a dataframe at the end. This is where we use the “chunksize” parameter. I also use the time library and some time methods to track the amount of time it takes to execute my reading of big data files.</p>
+
+<p>[python] import pandas as pd import time #num of lines to read at one time chunksize = 100 chunks=[]</p>
+
+<p>start = time.time()</p>
+
+<p>for chunk in pd.read_table(‘filename.txt’, chunksize=chunksize): chunks.append(chunk) data = pd.concat(chunks, ignore_index=True,axis=0) print(data.shape) #Prints (5200000, 18)</p>
+
+<p>end = time.time() print(end - start) #Prints 340.2000164985657 [/python]</p>
+
+<p>It takes a longer time at 340 seconds, but at the very least, you have the entire dataset in your dataframe! All 520000 rows in my case.</p>
+
+<p>When you specify the chunksize parameter, the function returns a iterator where each iteration is a chunk of X rows that you have specified. You would store X rows in an array, and then concatenate all the X rows together into a dataframe <strong>only after</strong> you have finish reading the file.</p>
+
+<p>It’s important to note that you do not perform a dataframe concatenation at every iteration of reading the file because each “pd.concat” operation actually creates an additional dataframe to copy the new one into the old one, causing a N^2 operation.</p>
+
+<p><strong>Extra tips on handling big data files</strong></p>
+
+<p><img src="/post_images/Extra1-923x1024-270x300.gif" alt="" /></p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>If you are reading a flat file, chances are that the columns are separated by a delimiter. For csv files, it’s usually a tab. For some others, it could be a “</td>
+      <td>” or something. Instead of separating the data into columns by the delimiter after loading the dataframe, do this to separate the data into the columns <strong>as it is loaded</strong> into the dataframe. It saves you 1 step of intensive computation:</td>
+    </tr>
+  </tbody>
+</table>
+
+<table>
+  <tbody>
+    <tr>
+      <td>[python] for chunk in pd.read_table(‘filename.txt’, chunksize=chunksize, delimiter=’</td>
+      <td>’) [/python]</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>By specifying the delimiter, each row of data is separated into the columns when loaded into the dataframe.</p>
+
+<p>However, when you do that, you might run into another issue. What if the data in one of the column has this delimiter? That would unexpectedly create another column of data isn’t it? In that case you would run into this error:</p>
+
+<p>[python] ValueError: Expecting 18 columns, got 19 in row 3476575 [/python]</p>
+
+<p>The short answer is to skip the problematic rows by using the parameter “error_bad_lines”:</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>[python] for chunk in pd.read_table(‘filename.txt’, chunksize=chunksize,delimiter=’</td>
+      <td>’, error_bad_lines=False): [/python]</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>And now it will just inform you that it has skipped line X:</p>
+
+<p>[python] b’Skipping line 3476575: expected 18 fields, saw 19\n’ [/python]</p>
+
+<p>So that’s all we got for now! If you have some helpful tricks that make everyone’s lives easier with loading big data files for data science projects, feel free to share below!</p>
+
+  </div><a class="u-url" href="/data-preprocessing/2017/06/25/practical-data-problems-how-to-read-big-data-files-efficiently.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">DataGeeko.com</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name"></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://www.linkedin.com/in/wei-yeng-seow-22405488"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#linkedin"></use></svg> <span class="username">wei-yeng-seow-22405488</span></a></li><li><a href="https://github.com/wyseow"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">wyseow</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>You just found DataGeeko.com! This is my personal website where I share fun experiments,  projects and insights about data science and machine learning.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
